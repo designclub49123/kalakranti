@@ -7,6 +7,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { cn } from '@/lib/utils';
 import { useTheme } from '@/contexts/ThemeContext';
 import * as IconsaxIcons from 'iconsax-react';
+import { Moon, Sun } from 'lucide-react';
 
 type NavItem = {
   icon: any;
@@ -22,7 +23,7 @@ export default function MobileAppBar() {
   const location = useLocation();
   const navigate = useNavigate();
   const { profile, signOut, isAdmin, isJuniorAdmin } = useAuth();
-  const { theme } = useTheme();
+  const { theme, toggleTheme } = useTheme();
   const [activePath, setActivePath] = useState(location.pathname);
 
   // Update active path when location changes
@@ -353,7 +354,7 @@ export default function MobileAppBar() {
       
       {/* Bottom Navigation Bar */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-card border-t border-border z-40">
-        <div className="flex justify-around items-center h-12 px-1">
+        <div className="flex justify-between items-center h-16 px-0">
           {bottomNavItems.map((item) => {
             const active = isActive(item);
             const Icon = IconsaxIcons[item.icon] || IconsaxIcons.InfoCircle;
@@ -363,19 +364,19 @@ export default function MobileAppBar() {
                 onClick={() => navigate(item.to)}
                 onMouseDown={(e) => e.preventDefault()}
                 className={cn(
-                  'flex flex-col items-center justify-center w-full h-full text-[10px]',
+                  'flex flex-col items-center justify-center w-full h-full text-xs',
                   active ? 'text-primary' : 'text-muted-foreground',
                   'transition-colors hover:text-primary',
-                  'py-0.5 px-0.5'
+                  'py-2 px-0 -mx-1'
                 )}
               >
                 <Icon 
                   variant={active ? 'Bold' : 'Outline'}
-                  size={18} 
+                  size={22} 
                   className="mb-0"
                 />
                 <span className={cn(
-                  'text-[9px] mt-0.5 font-medium leading-none',
+                  'text-[10px] mt-0.5 font-medium leading-tight',
                   'transition-colors duration-200',
                   active ? 'text-primary' : 'text-muted-foreground'
                 )}>
@@ -384,6 +385,22 @@ export default function MobileAppBar() {
               </div>
             );
           })}
+          
+          {/* Theme Toggle */}
+          <button
+            onClick={toggleTheme}
+            className="flex flex-col items-center justify-center w-full h-full py-2 px-0 -mx-1 text-muted-foreground hover:text-foreground transition-colors"
+            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+          >
+            {theme === 'dark' ? (
+              <Sun className="h-5 w-5 mb-0.5" />
+            ) : (
+              <Moon className="h-5 w-5 mb-0.5" />
+            )}
+            <span className="text-[10px] font-medium leading-tight">
+              {theme === 'dark' ? 'Light' : 'Dark'}
+            </span>
+          </button>
         </div>
       </nav>
     </>
