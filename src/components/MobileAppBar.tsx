@@ -7,7 +7,6 @@ import { useAuth } from '@/contexts/AuthContext';
 import { cn } from '@/lib/utils';
 import { useTheme } from '@/contexts/ThemeContext';
 import * as IconsaxIcons from 'iconsax-react';
-import { Moon, Sun } from 'lucide-react';
 
 type NavItem = {
   icon: any;
@@ -386,21 +385,6 @@ export default function MobileAppBar() {
             );
           })}
           
-          {/* Theme Toggle */}
-          <button
-            onClick={toggleTheme}
-            className="flex flex-col items-center justify-center w-full h-full py-2 px-0 -mx-1 text-muted-foreground hover:text-foreground transition-colors"
-            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-          >
-            {theme === 'dark' ? (
-              <Sun className="h-5 w-5 mb-0.5" />
-            ) : (
-              <Moon className="h-5 w-5 mb-0.5" />
-            )}
-            <span className="text-[10px] font-medium leading-tight">
-              {theme === 'dark' ? 'Light' : 'Dark'}
-            </span>
-          </button>
         </div>
       </nav>
     </>
