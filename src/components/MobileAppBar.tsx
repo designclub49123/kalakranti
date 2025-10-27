@@ -351,18 +351,9 @@ export default function MobileAppBar() {
         </div>
       </header>
       
-      {/* Bottom Navigation */}
-      <nav 
-        className={cn(
-          "md:hidden fixed bottom-0 left-0 right-0 border-t flex justify-around items-center h-16 z-40 transition-colors duration-200",
-          theme === 'dark' 
-            ? 'bg-card border-border' 
-            : 'bg-white border-gray-200',
-          'backdrop-blur-sm bg-opacity-90',
-          'select-none' // Prevent text selection on mobile
-        )}
-      >
-        <div className="flex items-center justify-around h-full w-full">
+      {/* Bottom Navigation Bar */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-card border-t border-border z-40">
+        <div className="flex justify-around items-center h-12 px-1">
           {bottomNavItems.map((item) => {
             const active = isActive(item);
             const Icon = IconsaxIcons[item.icon] || IconsaxIcons.InfoCircle;
@@ -372,22 +363,19 @@ export default function MobileAppBar() {
                 onClick={() => navigate(item.to)}
                 onMouseDown={(e) => e.preventDefault()}
                 className={cn(
-                  'flex flex-col items-center justify-center h-full w-full py-1',
-                  'active:opacity-70 transition-opacity select-none',
-                  active ? 'text-primary' : 'text-muted-foreground'
+                  'flex flex-col items-center justify-center w-full h-full text-[10px]',
+                  active ? 'text-primary' : 'text-muted-foreground',
+                  'transition-colors hover:text-primary',
+                  'py-0.5 px-0.5'
                 )}
               >
                 <Icon 
                   variant={active ? 'Bold' : 'Outline'}
-                  size={22}
-                  className={cn(
-                    'transition-transform duration-200',
-                    active ? 'scale-110' : 'scale-100',
-                    active ? 'text-primary' : 'text-muted-foreground'
-                  )}
+                  size={18} 
+                  className="mb-0"
                 />
                 <span className={cn(
-                  'text-[10px] mt-0.5 font-medium',
+                  'text-[9px] mt-0.5 font-medium leading-none',
                   'transition-colors duration-200',
                   active ? 'text-primary' : 'text-muted-foreground'
                 )}>
