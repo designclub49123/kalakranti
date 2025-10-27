@@ -57,7 +57,7 @@ export default function WhatsAppPopup() {
           </p>
           <div className="flex flex-col space-y-2">
             <a
-              href="https://chat.whatsapp.com/YOUR_WHATSAPP_GROUP_LINK"
+              href="https://chat.whatsapp.com/F3sU8mKgOD9JJbb2K2XkTH"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex justify-center items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
