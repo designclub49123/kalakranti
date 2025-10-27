@@ -3,7 +3,7 @@ import { Toaster as Sonner } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import WhatsAppPopup from '@/components/WhatsAppPopup';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, Outlet, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import Navigation from './components/Navigation';
@@ -52,10 +52,14 @@ function AuthenticatedApp() {
 // Main app content with all routes
 function AppContent() {
   const { user } = useAuth();
+  const location = useLocation();
+  
+  // Hide MobileAppBar on landing page and auth page
+  const shouldShowMobileAppBar = !['/', '/auth'].includes(location.pathname);
   
   return (
     <div className="min-h-screen flex flex-col">
-      <MobileAppBar />
+      {shouldShowMobileAppBar && <MobileAppBar />}
       <Routes>
         {/* Public routes */}
         <Route path="/" element={<LandingPage />} />

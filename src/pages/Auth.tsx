@@ -73,7 +73,7 @@ export default function Auth() {
         <div 
           className="absolute inset-0 bg-cover bg-center opacity-90 transition-opacity duration-300"
           style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1579783902614-a3bd78a1487a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80')",
+            backgroundImage: "url('https://bhalrlrwbfdfqcnmgcsa.supabase.co/storage/v1/object/public/gallery/AUTH%20IMAGE.jpeg')",
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'

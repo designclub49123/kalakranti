@@ -2,24 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { 
-  Menu, 
-  X, 
-  Home, 
-  Store, 
-  Calendar, 
-  User, 
-  LogOut, 
-  MessageSquare,
-  Image as ImageIcon,
-  Users,
-  PlusCircle,
-  Award,
-  LayoutDashboard,
-  Settings,
-  FileText,
-  MessageCircle
-} from 'lucide-react';
+import IconsaxIcon from '@/components/ui/IconsaxIcon';
 import { useAuth } from '@/contexts/AuthContext';
 import { cn } from '@/lib/utils';
 
@@ -47,57 +30,57 @@ export default function MobileAppBar() {
   // Navigation items
   const navItems: NavItem[] = [
     { 
-      icon: Home, 
+      icon: 'Home', 
       label: 'Home', 
       to: '/home',
       iconActive: (path: string) => path === '/home' || path === '/',
     },
     { 
-      icon: Calendar, 
+      icon: 'Calendar', 
       label: 'Events', 
       to: '/events',
       iconActive: (path: string) => path === '/events' || path.startsWith('/events/'),
     },
     { 
-      icon: Store, 
+      icon: 'Shop', 
       label: 'Stalls', 
       to: '/stalls',
       iconActive: (path: string) => path === '/stalls' || path.startsWith('/stalls/'),
     },
     { 
-      icon: PlusCircle, 
+      icon: 'AddCircle', 
       label: 'Register', 
       to: '/register-stall',
       iconActive: (path: string) => path === '/register-stall' || path.startsWith('/register-stall/'),
       studentOnly: true,
     },
     { 
-      icon: Users, 
+      icon: 'People', 
       label: 'Organizers', 
       to: '/organizers',
       iconActive: (path: string) => path === '/organizers' || path.startsWith('/organizers/'),
     },
     { 
-      icon: ImageIcon, 
+      icon: 'Gallery', 
       label: 'Gallery', 
       to: '/gallery',
       iconActive: (path: string) => path === '/gallery' || path.startsWith('/gallery/'),
     },
     { 
-      icon: MessageSquare, 
+      icon: 'Message', 
       label: 'Contact', 
       to: '/contact',
       iconActive: (path: string) => path === '/contact' || path.startsWith('/contact/'),
     },
     { 
-      icon: Award, 
+      icon: 'Award', 
       label: 'Certificates', 
       to: '/certificates',
       iconActive: (path: string) => path === '/certificates' || path.startsWith('/certificates/'),
     },
     // Admin only items
     { 
-      icon: LayoutDashboard, 
+      icon: 'Category', 
       label: 'Dashboard', 
       to: '/admin/dashboard',
       iconActive: (path: string) => 
@@ -106,7 +89,7 @@ export default function MobileAppBar() {
       adminOnly: true,
     },
     { 
-      icon: Settings, 
+      icon: 'Setting', 
       label: 'Manage Stalls', 
       to: '/admin/stalls',
       iconActive: (path: string) => 
@@ -114,7 +97,7 @@ export default function MobileAppBar() {
       adminOnly: true,
     },
     { 
-      icon: FileText, 
+      icon: 'DocumentText', 
       label: 'Forms', 
       to: '/admin/forms',
       iconActive: (path: string) => 
@@ -122,7 +105,7 @@ export default function MobileAppBar() {
       adminOnly: true,
     },
     { 
-      icon: MessageCircle, 
+      icon: 'MessageText1', 
       label: 'Messages', 
       to: '/admin/contact-submissions',
       iconActive: (path: string) => 
@@ -130,7 +113,7 @@ export default function MobileAppBar() {
       adminOnly: true,
     },
     { 
-      icon: User, 
+      icon: 'User', 
       label: 'Profile', 
       to: '/profile',
       iconActive: (path: string) => path === '/profile' || path.startsWith('/profile/'),
@@ -166,7 +149,7 @@ export default function MobileAppBar() {
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild>
             <Button variant="ghost" size="icon" className="md:hidden">
-              <Menu className="h-6 w-6" />
+              <IconsaxIcon name="Menu" className="h-6 w-6" />
             </Button>
           </SheetTrigger>
           
@@ -182,7 +165,7 @@ export default function MobileAppBar() {
                   onClick={() => setIsOpen(false)}
                   className="text-primary-foreground hover:bg-primary/80 hover:text-primary-foreground"
                 >
-                  <X className="h-5 w-5" />
+                  <IconsaxIcon name="CloseSquare" className="h-5 w-5" />
                 </Button>
               </div>
               
@@ -215,7 +198,14 @@ export default function MobileAppBar() {
                           setIsOpen(false);
                         }}
                       >
-                        <item.icon className="h-5 w-5" />
+                        <IconsaxIcon 
+                          name={item.icon} 
+                          variant={active ? 'Bold' : 'Linear'}
+                          className={cn(
+                            'h-5 w-5 mr-3',
+                            active ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'
+                          )} 
+                        />
                         <span>{item.label}</span>
                       </Button>
                     );
@@ -233,7 +223,7 @@ export default function MobileAppBar() {
                     setIsOpen(false);
                   }}
                 >
-                  <LogOut className="mr-2 h-4 w-4" />
+                  <IconsaxIcon name="Logout" variant="Bold" className="h-5 w-5 mr-3 text-destructive" />
                   Sign Out
                 </Button>
               </div>
