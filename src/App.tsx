@@ -1,6 +1,7 @@
 import { Toaster } from '@/components/ui/toaster';
 import { Toaster as Sonner } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
+import { cn } from '@/lib/utils';
 import WhatsAppPopup from '@/components/WhatsAppPopup';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter, Routes, Route, Navigate, Outlet, useLocation } from 'react-router-dom';
@@ -61,7 +62,13 @@ function AppContent() {
   return (
     <div className="min-h-screen flex flex-col">
       {shouldShowMobileAppBar && <MobileAppBar />}
-      <Routes>
+      <div className={cn(
+        'flex-1 w-full mx-auto',
+        'px-2', // Horizontal padding only
+        'md:p-0', // Remove padding on desktop
+        shouldShowMobileAppBar ? 'pt-14 pb-14' : 'pt-0' // Account for top and bottom app bars
+      )}>
+        <Routes>
         {/* Public routes */}
         <Route path="/" element={<LandingPage />} />
         <Route path="/auth" element={<Auth />} />
@@ -108,8 +115,9 @@ function AppContent() {
         <Route path="/app" element={<AuthenticatedApp />} />
         
         {/* 404 page */}
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
     </div>
   );
 }

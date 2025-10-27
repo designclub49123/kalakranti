@@ -6,6 +6,7 @@ import IconsaxIcon from '@/components/ui/IconsaxIcon';
 import { useAuth } from '@/contexts/AuthContext';
 import { cn } from '@/lib/utils';
 import { useTheme } from '@/contexts/ThemeContext';
+import * as IconsaxIcons from 'iconsax-react';
 
 type NavItem = {
   icon: any;
@@ -129,11 +130,43 @@ export default function MobileAppBar() {
     return true;
   });
 
-  // Bottom navigation items (only show main sections)
-  const bottomNavItems = filteredNavItems.filter(item => 
-    ['/home', '/events', '/stalls', '/profile'].includes(item.to) ||
-    (isAdmin && item.to === '/admin/dashboard')
-  ).slice(0, 4); // Limit to 4 items for bottom nav
+  // Bottom navigation items for mobile with better visibility
+  const bottomNavItems = [
+    {
+      icon: 'Home',
+      label: 'Home',
+      to: isAdmin || isJuniorAdmin ? '/admin/dashboard' : '/home',
+      iconActive: (path: string) => 
+        isAdmin || isJuniorAdmin 
+          ? path === '/admin/dashboard' || path === '/admin' || path === '/admin/'
+          : path === '/home' || path === '/',
+      iconSize: 26
+    },
+    { 
+      icon: 'Calendar', 
+      label: 'Events', 
+      to: '/events',
+      iconActive: (path: string) => path === '/events' || path.startsWith('/events/'),
+      iconSize: 24
+    },
+    { 
+      icon: 'Shop', 
+      label: 'Stalls', 
+      to: '/stalls',
+      iconActive: (path: string) => path === '/stalls' || path.startsWith('/stalls/'),
+      iconSize: 24
+    },
+    {
+      icon: 'DocumentText',
+      label: 'Forms',
+      to: isAdmin || isJuniorAdmin ? '/admin/forms' : '/register-stall',
+      iconActive: (path: string) => 
+        isAdmin || isJuniorAdmin
+          ? path === '/admin/forms' || path.startsWith('/admin/forms/')
+          : path === '/register-stall' || path.startsWith('/register-stall/'),
+      iconSize: 24
+    }
+  ];
 
   // Check if current path is active
   const isActive = (item: NavItem) => {
@@ -147,15 +180,30 @@ export default function MobileAppBar() {
     <>
       {/* Top App Bar */}
       <header className={cn(
-        "md:hidden fixed top-0 left-0 right-0 shadow-sm z-50 h-14 flex items-center px-4 transition-colors duration-200",
-        theme === 'dark' ? 'bg-card border-b border-border' : 'bg-white'
+        "md:hidden fixed top-0 left-0 right-0 shadow-sm z-50 h-16 flex items-center px-4 transition-colors duration-200",
+        theme === 'dark' ? 'bg-card border-b border-border' : 'bg-white',
+        'backdrop-blur-sm bg-opacity-90'
       )}>
         {/* Hamburger Menu Button */}
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className="md:hidden">
-              <IconsaxIcon name="Menu" className="h-6 w-6" />
-            </Button>
+            <div 
+              className="md:hidden h-10 w-10 flex items-center justify-center rounded-full hover:bg-accent active:scale-95 transition-all"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setIsOpen(!isOpen);
+              }}
+            >
+              <IconsaxIcons.Menu 
+                size={24}
+                variant="Outline"
+                className={cn(
+                  'transition-transform text-foreground',
+                  isOpen ? 'rotate-90' : 'rotate-0'
+                )}
+              />
+            </div>
           </SheetTrigger>
           
           {/* Sidebar Content */}
@@ -238,7 +286,14 @@ export default function MobileAppBar() {
         
         {/* App Title */}
         <div className="flex-1 text-center">
-          <h1 className="text-lg font-semibold">
+          <h1 className={cn(
+            'text-lg font-bold bg-gradient-to-r bg-clip-text text-transparent',
+            'from-primary to-primary/80',
+            'dark:from-primary-foreground dark:to-primary-foreground/80',
+            'transition-opacity',
+            isOpen ? 'opacity-0' : 'opacity-100',
+            'select-none'
+          )}>
             {isAdmin || isJuniorAdmin ? 'Admin Panel' : 'Kala Kranti'}
           </h1>
         </div>
@@ -248,10 +303,20 @@ export default function MobileAppBar() {
           <Button 
             variant="ghost" 
             size="icon" 
-            className="rounded-full"
+            className={cn(
+              'rounded-full h-10 w-10 transition-all',
+              'hover:bg-accent active:scale-95',
+              isOpen ? 'opacity-0 scale-0' : 'opacity-100 scale-100'
+            )}
             onClick={() => navigate('/profile')}
           >
-            <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-medium">
+            <div className={cn(
+              'h-8 w-8 rounded-full flex items-center justify-center font-bold',
+              'bg-gradient-to-br from-primary to-primary/80',
+              'text-white dark:text-foreground',
+              'shadow-sm',
+              'transition-transform active:scale-95'
+            )}>
               {profile?.full_name?.charAt(0) || 'U'}
             </div>
           </Button>
@@ -259,35 +324,52 @@ export default function MobileAppBar() {
       </header>
       
       {/* Bottom Navigation */}
-      <nav className={cn(
-        "md:hidden fixed bottom-0 left-0 right-0 border-t flex justify-around items-center h-14 z-40 transition-colors duration-200",
-        theme === 'dark' ? 'bg-card border-border' : 'bg-white border-gray-200'
-      )}>
-        <div className="flex items-center justify-around h-14">
+      <nav 
+        className={cn(
+          "md:hidden fixed bottom-0 left-0 right-0 border-t flex justify-around items-center h-16 z-40 transition-colors duration-200",
+          theme === 'dark' 
+            ? 'bg-card border-border' 
+            : 'bg-white border-gray-200',
+          'backdrop-blur-sm bg-opacity-90',
+          'select-none' // Prevent text selection on mobile
+        )}
+      >
+        <div className="flex items-center justify-around h-full w-full">
           {bottomNavItems.map((item) => {
             const active = isActive(item);
+            const Icon = IconsaxIcons[item.icon] || IconsaxIcons.InfoCircle;
             return (
-              <Button
+              <div
                 key={item.to}
-                variant="ghost"
-                size="sm"
-                className={cn(
-                  'flex flex-col items-center justify-center w-full h-full',
-                  active ? 'text-primary' : theme === 'dark' ? 'text-muted-foreground' : 'text-muted-foreground'
-                )}
                 onClick={() => navigate(item.to)}
+                onMouseDown={(e) => e.preventDefault()}
+                className={cn(
+                  'flex flex-col items-center justify-center h-full w-full py-1',
+                  'active:opacity-70 transition-opacity select-none',
+                  active ? 'text-primary' : 'text-muted-foreground'
+                )}
               >
-                <item.icon className={cn('h-5 w-5 mb-1', active ? 'fill-current' : '')} />
-                <span>{item.label}</span>
-              </Button>
+                <Icon 
+                  variant={active ? 'Bold' : 'Outline'}
+                  size={22}
+                  className={cn(
+                    'transition-transform duration-200',
+                    active ? 'scale-110' : 'scale-100',
+                    active ? 'text-primary' : 'text-muted-foreground'
+                  )}
+                />
+                <span className={cn(
+                  'text-[10px] mt-0.5 font-medium',
+                  'transition-colors duration-200',
+                  active ? 'text-primary' : 'text-muted-foreground'
+                )}>
+                  {item.label}
+                </span>
+              </div>
             );
           })}
         </div>
       </nav>
-      
-      {/* Add padding to the top and bottom of the main content to account for fixed headers */}
-      <div className="md:hidden h-14"></div>
-      <div className="md:hidden h-16"></div>
     </>
   );
 }
