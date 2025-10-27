@@ -130,43 +130,71 @@ export default function MobileAppBar() {
     return true;
   });
 
-  // Bottom navigation items for mobile with better visibility
-  const bottomNavItems = [
-    {
-      icon: 'Home',
-      label: 'Home',
-      to: isAdmin || isJuniorAdmin ? '/admin/dashboard' : '/home',
-      iconActive: (path: string) => 
-        isAdmin || isJuniorAdmin 
-          ? path === '/admin/dashboard' || path === '/admin' || path === '/admin/'
-          : path === '/home' || path === '/',
-      iconSize: 26
-    },
-    { 
-      icon: 'Calendar', 
-      label: 'Events', 
-      to: '/events',
-      iconActive: (path: string) => path === '/events' || path.startsWith('/events/'),
-      iconSize: 24
-    },
-    { 
-      icon: 'Shop', 
-      label: 'Stalls', 
-      to: '/stalls',
-      iconActive: (path: string) => path === '/stalls' || path.startsWith('/stalls/'),
-      iconSize: 24
-    },
-    {
-      icon: 'DocumentText',
-      label: 'Forms',
-      to: isAdmin || isJuniorAdmin ? '/admin/forms' : '/register-stall',
-      iconActive: (path: string) => 
-        isAdmin || isJuniorAdmin
-          ? path === '/admin/forms' || path.startsWith('/admin/forms/')
-          : path === '/register-stall' || path.startsWith('/register-stall/'),
-      iconSize: 24
-    }
-  ];
+  // Bottom navigation items for mobile
+  const bottomNavItems = (isAdmin || isJuniorAdmin) 
+    ? [
+        // Admin bottom nav items
+        {
+          icon: 'Home',
+          label: 'Home',
+          to: '/admin/dashboard',
+          iconActive: (path: string) => 
+            path === '/admin/dashboard' || path === '/admin' || path === '/admin/',
+          iconSize: 22
+        },
+        { 
+          icon: 'Calendar', 
+          label: 'Events', 
+          to: '/admin/events',
+          iconActive: (path: string) => path === '/admin/events' || path.startsWith('/admin/events/'),
+          iconSize: 22
+        },
+        { 
+          icon: 'Shop', 
+          label: 'Stalls', 
+          to: '/admin/stalls',
+          iconActive: (path: string) => path === '/admin/stalls' || path.startsWith('/admin/stalls/'),
+          iconSize: 22
+        },
+        {
+          icon: 'DocumentText',
+          label: 'Forms',
+          to: '/admin/forms',
+          iconActive: (path: string) => path === '/admin/forms' || path.startsWith('/admin/forms/'),
+          iconSize: 22
+        }
+      ]
+    : [
+        // Student bottom nav items
+        {
+          icon: 'Home',
+          label: 'Home',
+          to: '/home',
+          iconActive: (path: string) => path === '/home' || path === '/',
+          iconSize: 22
+        },
+        { 
+          icon: 'Calendar', 
+          label: 'Events', 
+          to: '/events',
+          iconActive: (path: string) => path === '/events' || path.startsWith('/events/'),
+          iconSize: 22
+        },
+        { 
+          icon: 'AddCircle', 
+          label: 'Register', 
+          to: '/register-stall',
+          iconActive: (path: string) => path === '/register-stall' || path.startsWith('/register-stall/'),
+          iconSize: 22
+        },
+        {
+          icon: 'Gallery',
+          label: 'Gallery',
+          to: '/gallery',
+          iconActive: (path: string) => path === '/gallery' || path.startsWith('/gallery/'),
+          iconSize: 22
+        }
+      ];
 
   // Check if current path is active
   const isActive = (item: NavItem) => {
