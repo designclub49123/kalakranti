@@ -4,7 +4,10 @@ import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Calendar, Users, Award, ArrowRight, BarChart3, FileText, Clock, CheckCircle, Loader2, MapPin, Mail, Phone, FolderOpen } from 'lucide-react';
+import { Calendar, Users, Award, ArrowRight, BarChart3, FileText, Clock, CheckCircle, Loader2, MapPin, Mail, Phone, FolderOpen, CheckCircle2, Sparkles } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
 import { format } from 'date-fns';
 import { toast } from '@/components/ui/use-toast';
 
@@ -438,91 +441,149 @@ export default function Home() {
         </>
       ) : (
         <>
-          {/* Hero Section for Non-Auth Users */}
-          <section className="relative overflow-hidden bg-gradient-hero py-20 px-4 rounded-lg">
-            <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:30px_30px]" />
-            <div className="relative max-w-6xl mx-auto text-center text-white">
-              <h1 className="text-5xl md:text-6xl font-bold mb-6 animate-fade-in">
-                Welcome to EventStall Hub
-              </h1>
-              <p className="text-xl md:text-2xl mb-8 text-white/90 max-w-2xl mx-auto">
-                Your complete platform for managing event stalls, registrations, and certificates
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button asChild size="lg" variant="secondary" className="shadow-lg">
-                  <Link to="/auth">
-                    Get Started
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Link>
-                </Button>
-                <Button asChild size="lg" variant="outline" className="bg-white/10 border-white/20 text-white hover:bg-white/20">
-                  <Link to="/events">View Events</Link>
-                </Button>
+          
+          {/* Enhanced Features Section */}
+          <section className="py-20 px-4 bg-gradient-to-b from-background to-muted/10">
+            <div className="max-w-7xl mx-auto">
+              <div className="text-center mb-16">
+                <Badge variant="outline" className="mb-4 py-1.5 px-4 border-primary/30 text-primary hover:bg-primary/5">
+                  <Sparkles className="w-4 h-4 mr-2" />
+                  Why Choose EventStall Hub?
+                </Badge>
+                <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/80 mb-4">
+                  Elevate Your Event Experience
+                </h2>
+                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                  Everything you need to manage your event stalls in one powerful platform
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {/* Feature 1 */}
+                <motion.div 
+                  whileHover={{ y: -8 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                  className="group relative"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-primary/20 rounded-xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <Card className="relative h-full border-2 hover:border-primary/30 transition-all duration-300 overflow-hidden">
+                    <CardHeader className="pb-0">
+                      <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
+                        <Users className="h-8 w-8 text-primary" />
+                      </div>
+                      <CardTitle className="text-2xl mb-2">Easy Registration</CardTitle>
+                      <CardDescription className="text-base">
+                        Register your stall in minutes with our streamlined application process
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="mt-4 pt-4 border-t border-border/50">
+                      <ul className="space-y-2 text-sm text-muted-foreground">
+                        <li className="flex items-center">
+                          <CheckCircle2 className="w-4 h-4 text-green-500 mr-2" />
+                          <span>One-click application</span>
+                        </li>
+                        <li className="flex items-center">
+                          <CheckCircle2 className="w-4 h-4 text-green-500 mr-2" />
+                          <span>Instant confirmation</span>
+                        </li>
+                        <li className="flex items-center">
+                          <CheckCircle2 className="w-4 h-4 text-green-500 mr-2" />
+                          <span>Document upload</span>
+                        </li>
+                      </ul>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+
+                {/* Feature 2 */}
+                <motion.div 
+                  whileHover={{ y: -8 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                  className="group relative"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-blue-500/20 rounded-xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <Card className="relative h-full border-2 hover:border-blue-300/30 transition-all duration-300 overflow-hidden">
+                    <CardHeader className="pb-0">
+                      <div className="w-16 h-16 rounded-xl bg-blue-500/10 flex items-center justify-center mb-6 group-hover:bg-blue-500/20 transition-colors">
+                        <Calendar className="h-8 w-8 text-blue-500" />
+                      </div>
+                      <CardTitle className="text-2xl mb-2">Event Management</CardTitle>
+                      <CardDescription className="text-base">
+                        Browse and register for multiple events with automatic stall assignment
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="mt-4 pt-4 border-t border-border/50">
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-muted-foreground">Upcoming Events</span>
+                          <Badge variant="outline" className="text-blue-500 border-blue-500/30">
+                            12+
+                          </Badge>
+                        </div>
+                        <Progress value={75} className="h-2 bg-blue-500/10" indicatorClassName="bg-blue-500" />
+                        <p className="text-xs text-muted-foreground">
+                          Book early for best stall locations
+                        </p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+
+                {/* Feature 3 */}
+                <motion.div 
+                  whileHover={{ y: -8 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                  className="group relative"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-amber-500/20 rounded-xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <Card className="relative h-full border-2 hover:border-amber-300/30 transition-all duration-300 overflow-hidden">
+                    <CardHeader className="pb-0">
+                      <div className="w-16 h-16 rounded-xl bg-amber-500/10 flex items-center justify-center mb-6 group-hover:bg-amber-500/20 transition-colors">
+                        <Award className="h-8 w-8 text-amber-500" />
+                      </div>
+                      <CardTitle className="text-2xl mb-2">Digital Certificates</CardTitle>
+                      <CardDescription className="text-base">
+                        Receive verified certificates for your participation automatically
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="mt-4 pt-4 border-t border-border/50">
+                      <div className="flex items-center space-x-3">
+                        <div className="p-3 rounded-lg bg-amber-500/10">
+                          <FileText className="h-6 w-6 text-amber-500" />
+                        </div>
+                        <div>
+                          <p className="font-medium">Certificate of Participation</p>
+                          <p className="text-sm text-muted-foreground">Download after event completion</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              </div>
+
+              {/* Stats Section */}
+              <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div className="text-center p-6 rounded-xl bg-background border border-border/50 hover:border-primary/30 transition-colors">
+                  <div className="text-3xl font-bold bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">500+</div>
+                  <p className="text-sm text-muted-foreground mt-2">Active Events</p>
+                </div>
+                <div className="text-center p-6 rounded-xl bg-background border border-border/50 hover:border-primary/30 transition-colors">
+                  <div className="text-3xl font-bold bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">10K+</div>
+                  <p className="text-sm text-muted-foreground mt-2">Stalls Booked</p>
+                </div>
+                <div className="text-center p-6 rounded-xl bg-background border border-border/50 hover:border-primary/30 transition-colors">
+                  <div className="text-3xl font-bold bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">98%</div>
+                  <p className="text-sm text-muted-foreground mt-2">Satisfaction Rate</p>
+                </div>
+                <div className="text-center p-6 rounded-xl bg-background border border-border/50 hover:border-primary/30 transition-colors">
+                  <div className="text-3xl font-bold bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">24/7</div>
+                  <p className="text-sm text-muted-foreground mt-2">Support</p>
+                </div>
               </div>
             </div>
           </section>
 
-          {/* Features Section */}
-          <section className="py-16 px-4 max-w-6xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Choose EventStall Hub?</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Everything you need to manage your event stalls in one place
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              <Card className="border-2 hover:border-primary transition-base hover:shadow-lg">
-                <CardHeader>
-                  <Users className="h-12 w-12 text-primary mb-4" />
-                  <CardTitle>Easy Registration</CardTitle>
-                  <CardDescription>
-                    Register your stall in minutes with our streamlined application process
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-
-              <Card className="border-2 hover:border-primary transition-base hover:shadow-lg">
-                <CardHeader>
-                  <Calendar className="h-12 w-12 text-primary mb-4" />
-                  <CardTitle>Event Management</CardTitle>
-                  <CardDescription>
-                    Browse and register for multiple events with automatic stall number assignment
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-
-              <Card className="border-2 hover:border-primary transition-base hover:shadow-lg">
-                <CardHeader>
-                  <Award className="h-12 w-12 text-primary mb-4" />
-                  <CardTitle>Digital Certificates</CardTitle>
-                  <CardDescription>
-                    Receive verified certificates for your participation automatically
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            </div>
-          </section>
-
-          {/* CTA Section */}
-          <section className="py-16 px-4">
-            <Card className="max-w-4xl mx-auto bg-gradient-hero text-white border-0">
-              <CardContent className="p-12 text-center">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                  Ready to Get Started?
-                </h2>
-                <p className="text-xl mb-8 text-white/90">
-                  Join thousands of students and organizers managing their event stalls
-                </p>
-                <Button asChild size="lg" variant="secondary" className="shadow-lg">
-                  <Link to="/auth">
-                    Create Your Account
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Link>
-                </Button>
-              </CardContent>
-            </Card>
-          </section>
+          
         </>
       )}
     </div>

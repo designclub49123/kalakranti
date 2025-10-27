@@ -5,6 +5,7 @@ import WhatsAppPopup from '@/components/WhatsAppPopup';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter, Routes, Route, Navigate, Outlet, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import ThemeProvider from './contexts/ThemeContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import Navigation from './components/Navigation';
 import MobileAppBar from './components/MobileAppBar';
@@ -120,8 +121,10 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <AuthProvider>
-          <AppContent />
-          <WhatsAppPopup />
+          <ThemeProvider>
+            <AppContent />
+            <WhatsAppPopup />
+          </ThemeProvider>
         </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>

@@ -2,8 +2,9 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import IconsaxIcon from '@/components/ui/IconsaxIcon';
+import { ThemeToggle } from './ThemeToggle';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -189,45 +190,52 @@ export default function Navigation({ children }: NavigationProps) {
   const displayItems: NavItem[] = (isAdmin || isJuniorAdmin) ? adminNavItems : studentNavItems;
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-background">
       <div className="flex flex-1 overflow-hidden" style={{ height: '100vh' }}>
         {/* Desktop Sidebar */}
         <aside 
-          className={`hidden md:flex flex-col bg-white border-r transition-all duration-300 ease-in-out fixed h-[calc(100vh-3.5rem)] z-30 ${
-            isCollapsed ? 'w-20' : 'w-72'
-          }`}
+          className={`hidden md:flex flex-col transition-all duration-300 ease-in-out fixed h-full z-30 ${
+            isCollapsed ? 'w-20' : 'w-64'
+          } bg-card border-r border-border`}
           style={{
             transform: 'translateZ(0)',
             backfaceVisibility: 'hidden',
-            willChange: 'width, transform'
+            willChange: 'width, transform',
+            boxShadow: '0 0 10px rgba(0, 0, 0, 0.05)'
           }}
         >
-        <div className="flex flex-col h-full">
-          {/* Logo and Toggle */}
-          <div className="flex flex-col justify-center h-[100px] px-6 border-b">
-            <div className="flex items-center">
-              {!isCollapsed && <h1 className="text-2xl font-bold text-gray-800">Kala Kranti</h1>}
-              <Button
-                variant="ghost"
-                size="icon"
-                className={`ml-auto h-10 w-10 ${isCollapsed ? 'mx-auto' : ''}`}
-                onClick={() => setIsCollapsed(!isCollapsed)}
-              >
-                <IconsaxIcon 
-                  name={isCollapsed ? "ArrowRight2" : "ArrowLeft2"} 
-                  size={20}
-                  variant="Linear"
-                />
-              </Button>
+          <div className="flex flex-col h-full">
+            {/* Logo and Toggle */}
+            <div className="p-4 border-b border-border">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  
+                  {!isCollapsed && (
+                    <span className="font-bold text-foreground text-lg">Kala Kranthi</span>
+                  )}
+                </div>
+                <div className="flex items-center space-x-1">
+                  {!isCollapsed && <ThemeToggle />}
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setIsCollapsed(!isCollapsed)}
+                    className="text-muted-foreground hover:text-foreground hover:bg-accent/50"
+                  >
+                    <IconsaxIcon 
+                      name={isCollapsed ? "ArrowRight2" : "ArrowLeft2"} 
+                      size={20}
+                      variant="Linear"
+                      className="transition-transform duration-200"
+                    />
+                  </Button>
+                </div>
+              </div>
             </div>
-            {!isCollapsed && (
-              <p className="text-sm text-gray-500 mt-1">Welcome back, {profile?.full_name?.split(' ')[0] || 'User'}</p>
-            )}
-          </div>
 
           {/* Navigation Items */}
-          <div className="flex-1 overflow-y-auto custom-scrollbar mt-2">
-            <nav className="px-2 py-4 space-y-1">
+          <div className="flex-1 overflow-y-auto py-4 px-2">
+            <nav className="space-y-1">
               {displayItems.map((item) => {
                 const isActive = item.iconActive ? item.iconActive(location.pathname) : location.pathname === item.to;
                 return (
@@ -236,24 +244,28 @@ export default function Navigation({ children }: NavigationProps) {
                       to={item.to}
                       className={`flex items-center px-4 py-3 text-sm font-medium rounded-lg mx-2 transition-all duration-200 focus:outline-none focus:ring-0 ${
                         isActive 
-                          ? 'bg-blue-50 text-blue-700 font-semibold shadow-sm' 
-                          : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900 transform hover:translate-x-1'
+                          ? 'bg-primary/10 text-primary font-medium' 
+                          : 'text-muted-foreground hover:bg-accent hover:text-foreground'
                       }`}
                       onMouseDown={(e) => e.preventDefault()}
                     >
-                      <IconsaxIcon 
-                        name={item.icon} 
-                        variant={isActive ? 'Bold' : 'Linear'}
-                        size={20}
-                        className={`flex-shrink-0 ${
-                          isActive ? 'text-blue-600' : 'text-gray-500 group-hover:text-gray-700'
-                        }`}
-                        aria-hidden="true"
-                      />
-                      {!isCollapsed && <span className="ml-3 truncate">{item.label}</span>}
+                      <div className={`p-1.5 rounded-lg ${isActive ? 'bg-primary/5' : 'group-hover:bg-accent'}`}>
+                        <IconsaxIcon 
+                          name={item.icon} 
+                          variant={isActive ? 'Bold' : 'Linear'}
+                          size={20}
+                          className={`flex-shrink-0 ${isActive ? 'text-primary' : 'group-hover:text-foreground'}`}
+                          aria-hidden="true"
+                        />
+                      </div>
+                      {!isCollapsed && (
+                        <span className="ml-3 truncate">
+                          {item.label}
+                        </span>
+                      )}
                     </Link>
                     {isCollapsed && (
-                      <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity z-50 pointer-events-none">
+                      <div className="absolute left-full ml-2 px-2 py-1.5 bg-card text-foreground text-xs rounded-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-200 z-50 pointer-events-none shadow-lg border border-border">
                         {item.label}
                       </div>
                     )}
@@ -264,48 +276,37 @@ export default function Navigation({ children }: NavigationProps) {
           </div>
 
           {/* Profile Section - Always at the bottom */}
-          <div className="p-2 border-t mt-auto bg-white">
-            {isCollapsed ? (
+          <div className="p-4 border-t border-border mt-auto">
+            <div className={`transition-all duration-200 ${isCollapsed ? 'px-0' : 'px-2'}`}>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <button className="w-full flex items-center justify-center p-2 rounded-lg hover:bg-gray-50 transition-colors focus:outline-none focus:ring-0">
-                    <Avatar className="h-8 w-8">
-                      <AvatarFallback className="bg-blue-100 text-blue-600 text-xs">
-                        {profile?.full_name?.charAt(0) || 'U'}
-                      </AvatarFallback>
-                    </Avatar>
-                  </button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-48" align="center" sideOffset={10}>
-                  <DropdownMenuItem asChild>
-                    <Link to="/profile" className="w-full cursor-pointer focus:outline-none focus:ring-0">
-                      <IconsaxIcon name="User" className="mr-2 h-4 w-4" />
-                      <span>Profile</span>
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem 
-                    onClick={signOut}
-                    className="w-full cursor-pointer text-red-600 focus:text-red-600 focus:bg-red-50"
-                  >
-                    <IconsaxIcon name="Logout" className="mr-2 h-4 w-4" />
-                    <span>Sign out</span>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            ) : (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <button className="w-full flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 transition-colors focus:outline-none focus:ring-0">
-                    <Avatar className="h-10 w-10 flex-shrink-0">
-                      <AvatarFallback className="bg-blue-100 text-blue-600">
-                        {profile?.full_name?.charAt(0) || 'U'}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="flex-1 min-w-0 text-left">
-                      <p className="font-medium text-gray-900 truncate">{profile?.full_name || 'User'}</p>
-                      <p className="text-sm text-gray-500 capitalize">{userRole || 'Student'}</p>
+                  <button className={`w-full flex items-center rounded-lg p-2 transition-colors ${
+                    isCollapsed ? 'justify-center' : 'justify-between hover:bg-accent'
+                  }`}>
+                    <div className="flex items-center space-x-3">
+                      <Avatar className="h-8 w-8 flex-shrink-0">
+                        <AvatarFallback className="bg-primary/10 text-primary font-medium">
+                          {profile?.full_name?.charAt(0) || 'U'}
+                        </AvatarFallback>
+                      </Avatar>
+                      {!isCollapsed && (
+                        <div className="text-left overflow-hidden">
+                          <p className="text-sm font-medium text-foreground truncate">
+                            {profile?.full_name || 'User'}
+                          </p>
+                          <p className="text-xs text-muted-foreground capitalize">
+                            {userRole || 'Student'}
+                          </p>
+                        </div>
+                      )}
                     </div>
-                    <IconsaxIcon name="ArrowDown2" size={16} className="text-gray-500 flex-shrink-0" />
+                    {!isCollapsed && (
+                      <IconsaxIcon 
+                        name="ArrowDown2" 
+                        size={16} 
+                        className="text-muted-foreground flex-shrink-0" 
+                      />
+                    )}
                   </button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56" align="start" sideOffset={10}>
@@ -317,14 +318,14 @@ export default function Navigation({ children }: NavigationProps) {
                   </DropdownMenuItem>
                   <DropdownMenuItem 
                     onClick={signOut}
-                    className="w-full cursor-pointer text-red-600 focus:text-red-600 focus:bg-red-50"
+                    className="w-full text-left p-2 text-foreground hover:bg-accent rounded cursor-pointer"
                   >
                     <IconsaxIcon name="Logout" className="mr-2 h-4 w-4" />
                     <span>Sign out</span>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-            )}
+            </div>
           </div>
 
           </div>
@@ -333,25 +334,21 @@ export default function Navigation({ children }: NavigationProps) {
         {/* Main Content Area */}
         <div className="flex-1 overflow-auto">
           <main 
-            className={`min-h-full transition-all duration-300 ease-in-out ${
-              isCollapsed ? 'md:pl-20' : 'md:pl-72'
-            }`}
+            className="flex-1 relative z-0 overflow-y-auto focus:outline-none bg-background"
             style={{
-              transform: 'translateZ(0)',
-              backfaceVisibility: 'hidden',
-              willChange: 'margin-left',
-              minHeight: '100%',
-              maxHeight: 'calc(100vh - 3.5rem)',
-              overflowY: 'auto'
+              marginLeft: isMobile ? 0 : (isCollapsed ? '5rem' : '16rem'),
+              transition: 'margin 0.3s ease',
+              maxHeight: '100vh',
+              overflowY: 'auto',
+              scrollBehavior: 'smooth'
             }}
           >
-            <div className="p-4 md:p-6">
+            <div className="p-4 md:p-6 max-w-7xl mx-auto w-full">
               {children}
             </div>
           </main>
         </div>
       </div>
-
     </div>
   );
 }

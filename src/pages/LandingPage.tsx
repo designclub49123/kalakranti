@@ -11,39 +11,39 @@ import { toast } from 'sonner';
 const features = [
   {
     icon: 'Calendar',
-    iconColor: 'text-red-400',
+    iconColor: 'text-red-400 dark:text-red-300',
     title: 'Event Management',
     description: 'Easily create, manage, and track your events in one place.',
-    bgColor: 'bg-red-50',
-    hoverBg: 'hover:bg-red-100',
-    borderColor: 'border-red-200'
+    bgColor: 'bg-red-50 dark:bg-red-900/20',
+    hoverBg: 'hover:bg-red-100 dark:hover:bg-red-900/30',
+    borderColor: 'border-red-200 dark:border-red-800/50'
   },
   {
     icon: 'Category',
-    iconColor: 'text-blue-400',
+    iconColor: 'text-blue-400 dark:text-blue-300',
     title: 'Quick Registration',
     description: 'Simple and fast registration process for all events.',
-    bgColor: 'bg-blue-50',
-    hoverBg: 'hover:bg-blue-100',
-    borderColor: 'border-blue-200'
+    bgColor: 'bg-blue-50 dark:bg-blue-900/20',
+    hoverBg: 'hover:bg-blue-100 dark:hover:bg-blue-900/30',
+    borderColor: 'border-blue-200 dark:border-blue-800/50'
   },
   {
     icon: 'People',
-    iconColor: 'text-red-400',
+    iconColor: 'text-red-400 dark:text-red-300',
     title: 'Community',
     description: 'Connect with other students and organizers.',
-    bgColor: 'bg-red-50',
-    hoverBg: 'hover:bg-red-100',
-    borderColor: 'border-red-200'
+    bgColor: 'bg-red-50 dark:bg-red-900/20',
+    hoverBg: 'hover:bg-red-100 dark:hover:bg-red-900/30',
+    borderColor: 'border-red-200 dark:border-red-800/50'
   },
   {
     icon: 'Award',
-    iconColor: 'text-blue-400',
+    iconColor: 'text-blue-400 dark:text-blue-300',
     title: 'Achievements',
     description: 'Track your participation and earn recognition.',
-    bgColor: 'bg-blue-50',
-    hoverBg: 'hover:bg-blue-100',
-    borderColor: 'border-blue-200'
+    bgColor: 'bg-blue-50 dark:bg-blue-900/20',
+    hoverBg: 'hover:bg-blue-100 dark:hover:bg-blue-900/30',
+    borderColor: 'border-blue-200 dark:border-blue-800/50'
   }
 ];
 
@@ -106,43 +106,43 @@ const stats = [
 const whyChooseUsFeatures = [
   {
     iconName: 'AddCircle',
-    iconColor: 'text-blue-600',
-    bgColor: 'bg-blue-50 dark:bg-blue-900/20',
+    iconColor: 'text-blue-600 dark:text-blue-400',
+    bgColor: 'bg-blue-100/80 dark:bg-blue-900/30',
     title: 'Easy Registration',
     description: 'Quick and simple stall registration process for any event with just a few clicks.'
   },
   {
     iconName: 'People',
-    iconColor: 'text-purple-600',
-    bgColor: 'bg-purple-50 dark:bg-purple-900/20',
+    iconColor: 'text-purple-600 dark:text-purple-400',
+    bgColor: 'bg-purple-100/80 dark:bg-purple-900/30',
     title: 'Team Management',
     description: 'Easily manage your team members, roles, and permissions in one place.'
   },
   {
     iconName: 'Award',
-    iconColor: 'text-red-600',
-    bgColor: 'bg-red-50 dark:bg-red-900/20',
+    iconColor: 'text-red-600 dark:text-red-400',
+    bgColor: 'bg-red-100/80 dark:bg-red-900/30',
     title: 'Earn Recognition',
     description: 'Receive digital certificates and badges for your participation and achievements.'
   },
   {
     iconName: 'Category',
-    iconColor: 'text-green-600',
-    bgColor: 'bg-green-50 dark:bg-green-900/20',
+    iconColor: 'text-green-600 dark:text-green-400',
+    bgColor: 'bg-green-100/80 dark:bg-green-900/30',
     title: 'Seamless Access',
     description: 'Instant access to all your event details, schedules, and resources in one place.'
   },
   {
     iconName: 'TickCircle',
-    iconColor: 'text-yellow-600',
-    bgColor: 'bg-yellow-50 dark:bg-yellow-900/20',
+    iconColor: 'text-yellow-600 dark:text-yellow-400',
+    bgColor: 'bg-yellow-100/80 dark:bg-yellow-900/30',
     title: 'Quick Approvals',
     description: 'Streamlined approval process with real-time updates on your applications.'
   },
   {
     iconName: 'Chart',
-    iconColor: 'text-indigo-600',
-    bgColor: 'bg-indigo-50 dark:bg-indigo-900/20',
+    iconColor: 'text-indigo-600 dark:text-indigo-400',
+    bgColor: 'bg-indigo-100/80 dark:bg-indigo-900/30',
     title: 'Analytics Dashboard',
     description: 'Track your event performance and engagement with detailed analytics.'
   }
@@ -274,9 +274,9 @@ export default function LandingPage() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-blue-50 via-white to-red-50">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-blue-50 via-white to-red-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-700">
       {/* Navigation - Non-sticky for landing page */}
-      <nav className={`relative w-full z-50 bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-100/50`}>
+      <nav className={`relative w-full z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg border-b border-gray-100/50 dark:border-gray-700/50`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-14 sm:h-16">
             <div className="flex items-center">
@@ -286,7 +286,7 @@ export default function LandingPage() {
                   alt="GGU Events Logo" 
                   className="h-8 w-auto sm:h-10 transition-all duration-300"
                 />
-                <span className="text-sm sm:text-base text-gray-500">by</span>
+                <span className="text-sm sm:text-base text-gray-500 dark:text-gray-400">by</span>
                 <img 
                   src="https://bhalrlrwbfdfqcnmgcsa.supabase.co/storage/v1/object/public/gallery/ggu-logo.jpeg" 
                   alt="GGU Logo" 
@@ -295,18 +295,18 @@ export default function LandingPage() {
               </div>
             </div>
             <div className="hidden md:flex items-center space-x-8">
-              <a href="#home" className="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium">Home</a>
-              <a href="#features" className="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium">Features</a>
-              <a href="#events" className="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium">Events</a>
-              <a href="#testimonials" className="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium">Testimonials</a>
-              <a href="#about" className="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium">About</a>
-              <a href="#contact" className="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium">Contact</a>
+              <a href="#home" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 font-medium">Home</a>
+              <a href="#features" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 font-medium">Features</a>
+              <a href="#events" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 font-medium">Events</a>
+              <a href="#testimonials" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 font-medium">Testimonials</a>
+              <a href="#about" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 font-medium">About</a>
+              <a href="#contact" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 font-medium">Contact</a>
             </div>
             <div className="flex items-center space-x-4">
               <Button variant="ghost" asChild className="hidden sm:inline-flex">
                 <Link to="/auth">Log in</Link>
               </Button>
-              <Button asChild className="bg-gradient-to-r from-blue-500 to-red-500 hover:from-blue-600 hover:to-red-600 shadow-lg text-white">
+              <Button asChild className="bg-gradient-to-r from-blue-500 to-red-500 hover:from-blue-600 hover:to-red-600 shadow-lg text-white dark:from-blue-600 dark:to-red-600 dark:hover:from-blue-700 dark:hover:to-red-700">
                 <Link to="/auth?mode=signup" className="flex items-center">
                   Sign up <IconsaxIcon name="ArrowRight2" className="ml-2 h-4 w-4" />
                 </Link>
@@ -318,7 +318,7 @@ export default function LandingPage() {
 
       {/* Hero Section */}
       <main className="flex-grow">
-        <section id="home" className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-purple-50 to-indigo-50 pt-8 pb-12 sm:pt-16 sm:pb-20 md:py-32 px-4">
+        <section id="home" className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-purple-50 to-indigo-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-700 pt-8 pb-12 sm:pt-16 sm:pb-20 md:py-32 px-4">
           <div className="absolute inset-0 opacity-10">
             <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0iIzAwMCIgZmlsbC1vcGFjaXR5PSIwLjA1Ii8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI3BhdHRlcm4pIi8+PC9zdmc+')]" />
           </div>
@@ -330,24 +330,24 @@ export default function LandingPage() {
                 transition={{ duration: 0.8 }}
                 className="text-center md:text-left"
               >
-                <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-blue-100 to-red-100 text-blue-700 text-sm font-medium mb-6 shadow-sm border border-blue-100">
+                <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-blue-100 to-red-100 dark:from-blue-900/30 dark:to-red-900/30 text-blue-700 dark:text-blue-300 text-sm font-medium mb-6 shadow-sm border border-blue-100 dark:border-blue-800/50">
                   <IconsaxIcon name="Award" className="h-4 w-4 mr-2" />
                   Join 5,000+ Happy Students
                 </div>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-                  Experience the Best <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Campus Events</span>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+                  Experience the Best <span className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">Campus Events</span>
                 </h1>
-                <p className="text-lg text-gray-600 max-w-2xl mx-auto md:mx-0 mb-10 leading-relaxed">
+                <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto md:mx-0 mb-10 leading-relaxed">
                   Discover, register, and manage event stalls with ease. Join thousands of students and organizers in creating memorable experiences at Godavari Global University.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                  <Button size="lg" className="text-lg py-6 px-8 bg-gradient-to-r from-blue-500 to-red-500 hover:from-blue-600 hover:to-red-600 shadow-lg text-white" asChild>
+                  <Button size="lg" className="text-lg py-6 px-8 bg-gradient-to-r from-blue-500 to-red-500 hover:from-blue-600 hover:to-red-600 shadow-lg text-white dark:from-blue-600 dark:to-red-600 dark:hover:from-blue-700 dark:hover:to-red-700" asChild>
                     <Link to="/auth?mode=signup" className="flex items-center">
                       Get Started Now
                       <IconsaxIcon name="ArrowRight2" className="ml-2 h-5 w-5" />
                     </Link>
                   </Button>
-                  <Button variant="outline" size="lg" className="text-lg py-6 px-8 border-blue-300 text-blue-600 hover:bg-blue-50" asChild>
+                  <Button variant="outline" size="lg" className="text-lg py-6 px-8 border-blue-300 dark:border-blue-600 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20" asChild>
                     <Link to="/events" className="flex items-center">
                       <IconsaxIcon name="Calendar" className="mr-2 h-5 w-5" />
                       Browse Events
@@ -369,27 +369,27 @@ export default function LandingPage() {
                     className="w-full h-auto object-cover min-h-[500px]"
                   />
                 </div>
-                <div className="absolute -bottom-8 -left-6 bg-white p-6 rounded-xl shadow-xl z-20 w-72 border border-gray-100">
+                <div className="absolute -bottom-8 -left-6 bg-white/90 dark:bg-gray-800/95 backdrop-blur-sm p-6 rounded-xl shadow-xl z-20 w-72 border border-gray-100 dark:border-gray-700">
                   <div className="flex items-start space-x-4">
-                    <div className="bg-blue-100 p-3 rounded-lg flex-shrink-0">
-                      <IconsaxIcon name="Calendar" className="text-blue-600 h-6 w-6" />
+                    <div className="bg-blue-500/10 dark:bg-blue-400/20 p-3 rounded-lg flex-shrink-0">
+                      <IconsaxIcon name="Calendar" className="text-blue-600 dark:text-blue-300 h-6 w-6" />
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500 font-medium">Next Event</p>
-                      <h4 className="font-semibold text-gray-900">Annual Tech Fest</h4>
-                      <p className="text-sm text-blue-600 font-medium">15 Oct 2025</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">Next Event</p>
+                      <h4 className="font-semibold text-gray-900 dark:text-white">Annual Tech Fest</h4>
+                      <p className="text-sm text-blue-600 dark:text-blue-400 font-medium">14 NOV 2025</p>
                     </div>
                   </div>
                 </div>
-                <div className="absolute -top-8 -right-6 bg-white p-6 rounded-xl shadow-xl z-20 w-72 border border-gray-100">
+                <div className="absolute -top-8 -right-6 bg-white/90 dark:bg-gray-800/95 backdrop-blur-sm p-6 rounded-xl shadow-xl z-20 w-72 border border-gray-100 dark:border-gray-700">
                   <div className="flex items-start space-x-4">
-                    <div className="bg-purple-100 p-3 rounded-lg flex-shrink-0">
-                      <IconsaxIcon name="People" className="text-purple-600 h-6 w-6" />
+                    <div className="bg-purple-500/10 dark:bg-purple-400/20 p-3 rounded-lg flex-shrink-0">
+                      <IconsaxIcon name="People" className="text-purple-600 dark:text-purple-300 h-6 w-6" />
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500 font-medium">Participants</p>
-                      <h4 className="font-semibold text-gray-900">500+ Students</h4>
-                      <p className="text-sm text-purple-600 font-medium">Already Registered</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">Participants</p>
+                      <h4 className="font-semibold text-gray-900 dark:text-white">500+ Students</h4>
+                      <p className="text-sm text-purple-600 dark:text-purple-400 font-medium">Already Registered</p>
                     </div>
                   </div>
                 </div>
@@ -399,7 +399,7 @@ export default function LandingPage() {
         </section>
 
         {/* Stats Section */}
-        <section className="py-20 bg-gradient-to-r from-blue-50 to-red-50">
+        <section className="py-20 bg-gradient-to-r from-blue-50 to-red-50 dark:from-gray-800 dark:to-gray-700">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               {stats.map((stat, index) => (
@@ -411,10 +411,10 @@ export default function LandingPage() {
                   transition={{ duration: 0.5 }}
                   className="group"
                 >
-                  <div className="text-4xl md:text-5xl font-bold text-gray-900 mb-2 bg-gradient-to-r from-blue-500 to-red-500 bg-clip-text text-transparent">
+                  <div className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-2 bg-gradient-to-r from-blue-500 to-red-500 dark:from-blue-400 dark:to-red-400 bg-clip-text text-transparent">
                     {stat.value}
                   </div>
-                  <p className="text-gray-600 font-medium">{stat.label}</p>
+                  <p className="text-gray-600 dark:text-gray-300 font-medium">{stat.label}</p>
                 </motion.div>
               ))}
             </div>
@@ -422,7 +422,7 @@ export default function LandingPage() {
         </section>
 
         {/* Features Section */}
-        <section id="features" className="py-24 bg-white">
+        <section id="features" className="py-24 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
@@ -430,8 +430,8 @@ export default function LandingPage() {
               viewport={{ once: true }}
               className="text-center mb-16"
             >
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Amazing Features</h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">Everything you need to manage and enjoy campus events</p>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Amazing Features</h2>
+              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">Everything you need to manage and enjoy campus events</p>
             </motion.div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {features.map((feature, index) => (
@@ -441,14 +441,14 @@ export default function LandingPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5 }}
-                  className="group bg-white/80 p-8 rounded-xl border border-blue-100/50 shadow-sm hover:shadow-xl hover:border-blue-200/50 transition-all duration-300 cursor-pointer backdrop-blur-sm"
+                  className="group bg-white/80 dark:bg-gray-800/80 p-8 rounded-xl border border-blue-100/50 dark:border-blue-800/50 shadow-sm hover:shadow-xl hover:border-blue-200/50 dark:hover:border-blue-700/50 transition-all duration-300 cursor-pointer backdrop-blur-sm"
                   whileHover={{ y: -4 }}
                 >
                   <div className={`w-16 h-16 ${feature.bgColor} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
                     <IconsaxIcon name={feature.icon} className={`h-8 w-8 ${feature.iconColor}`} />
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">{feature.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{feature.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{feature.description}</p>
                 </motion.div>
               ))}
             </div>
@@ -456,7 +456,7 @@ export default function LandingPage() {
         </section>
 
         {/* Upcoming Events */}
-        <section id="events" className="py-24 bg-gray-50">
+        <section id="events" className="py-24 bg-gray-50 dark:bg-gray-800">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
@@ -464,8 +464,8 @@ export default function LandingPage() {
               viewport={{ once: true }}
               className="text-center mb-16"
             >
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Upcoming Events</h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">Don't miss these exciting events on campus</p>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Upcoming Events</h2>
+              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">Don't miss these exciting events on campus</p>
             </motion.div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {events.map((event, index) => (
@@ -475,7 +475,7 @@ export default function LandingPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5 }}
-                  className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 cursor-pointer group"
+                  className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 cursor-pointer group"
                   whileHover={{ y: -8 }}
                 >
                   <div className="h-48 overflow-hidden relative group-hover:scale-105 transition-transform duration-500">
@@ -491,14 +491,14 @@ export default function LandingPage() {
                       <span className="px-3 py-1 bg-gradient-to-r from-blue-400 to-red-400 text-white text-sm font-medium rounded-full shadow-sm">
                         {event.category}
                       </span>
-                      <span className="text-sm text-gray-500 font-medium">{event.date}</span>
+                      <span className="text-sm text-gray-500 dark:text-gray-400 font-medium">{event.date}</span>
                     </div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">{event.title}</h3>
-                    <p className="text-gray-600 mb-6 flex items-center">
-                      <IconsaxIcon name="Category" className="mr-2 h-4 w-4 text-gray-400" />
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{event.title}</h3>
+                    <p className="text-gray-600 dark:text-gray-300 mb-6 flex items-center">
+                      <IconsaxIcon name="Category" className="mr-2 h-4 w-4 text-gray-400 dark:text-gray-500" />
                       {event.location}
                     </p>
-                    <Button className="w-full bg-gradient-to-r from-blue-500 to-red-500 hover:from-blue-600 hover:to-red-600 shadow-md text-white" asChild>
+                    <Button className="w-full bg-gradient-to-r from-blue-500 to-red-500 hover:from-blue-600 hover:to-red-600 shadow-md text-white dark:from-blue-600 dark:to-red-600 dark:hover:from-blue-700 dark:hover:to-red-700" asChild>
                       <Link to={`/events/${event.id}`} className="flex items-center justify-center">
                         Learn More
                         <IconsaxIcon name="ArrowRight2" className="ml-2 h-4 w-4" />
@@ -514,7 +514,7 @@ export default function LandingPage() {
               viewport={{ once: true }}
               className="mt-16 text-center"
             >
-              <Button variant="outline" size="lg" asChild className="border-gray-300 px-8 py-6">
+              <Button variant="outline" size="lg" asChild className="border-gray-300 dark:border-gray-600 px-8 py-6">
                 <Link to="/events" className="flex items-center mx-auto">
                   View All Events
                   <IconsaxIcon name="ArrowRight2" className="ml-2 h-4 w-4" />
@@ -525,7 +525,7 @@ export default function LandingPage() {
         </section>
 
         {/* Testimonials Section */}
-        <section id="testimonials" className="py-24 bg-white">
+        <section id="testimonials" className="py-24 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
@@ -533,8 +533,8 @@ export default function LandingPage() {
               viewport={{ once: true }}
               className="text-center mb-16"
             >
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">What Our Organizers Say</h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">Hear from Organizers who love Kala Kranthi</p>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">What Our Organizers Say</h2>
+              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">Hear from Organizers who love Kala Kranthi</p>
             </motion.div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {testimonials.map((testimonial, index) => (
@@ -544,7 +544,7 @@ export default function LandingPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5 }}
-                  className="bg-gray-50 rounded-2xl p-8 border border-gray-200 hover:shadow-xl transition-all duration-300 relative"
+                  className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300 relative"
                   whileHover={{ y: -4 }}
                 >
                   <div className="flex mb-4">
@@ -552,11 +552,11 @@ export default function LandingPage() {
                       <IconsaxIcon
                         key={i}
                         name="Award"
-                        className={`h-5 w-5 ${i < testimonial.rating ? 'text-yellow-400' : 'text-gray-300'}`}
+                        className={`h-5 w-5 ${i < testimonial.rating ? 'text-yellow-400' : 'text-gray-300 dark:text-gray-600'}`}
                       />
                     ))}
                   </div>
-                  <p className="text-gray-700 mb-6 italic leading-relaxed">"{testimonial.quote}"</p>
+                  <p className="text-gray-700 dark:text-gray-300 mb-6 italic leading-relaxed">"{testimonial.quote}"</p>
                   <div className="flex items-center">
                     <img 
                       src={testimonial.avatar} 
@@ -564,8 +564,8 @@ export default function LandingPage() {
                       className="w-12 h-12 rounded-full object-cover mr-4"
                     />
                     <div>
-                      <h4 className="font-semibold text-gray-900">{testimonial.name}</h4>
-                      <p className="text-sm text-gray-500">{testimonial.role}</p>
+                      <h4 className="font-semibold text-gray-900 dark:text-white">{testimonial.name}</h4>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">{testimonial.role}</p>
                     </div>
                   </div>
                 </motion.div>
@@ -575,7 +575,7 @@ export default function LandingPage() {
         </section>
 
         {/* CTA Section */}
-        <section id="about" className="py-24 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 text-white relative overflow-hidden">
+        <section id="about" className="py-24 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 text-white relative overflow-hidden dark:from-gray-800 dark:via-gray-700 dark:to-gray-600">
           <div className="absolute inset-0 opacity-10">
             <div className="absolute inset-0 bg-[url('https://bhalrlrwbfdfqcnmgcsa.supabase.co/storage/v1/object/public/gallery/AUTH%20IMAGE.jpeg')]" />
           </div>
@@ -590,7 +590,7 @@ export default function LandingPage() {
               <div className="flex flex-col sm:flex-row justify-center gap-4">
                 <Button 
                   size="lg" 
-                  className="bg-white text-blue-700 hover:bg-blue-50 px-8 py-6 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5" 
+                  className="bg-white text-blue-700 hover:bg-blue-50 px-8 py-6 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 dark:bg-gray-200 dark:text-gray-900 dark:hover:bg-gray-300" 
                   asChild
                 >
                   <Link to="/auth?mode=signup">
@@ -600,7 +600,7 @@ export default function LandingPage() {
                 <Button 
                   variant="outline" 
                   size="lg" 
-                  className="border-2 border-white text-white bg-blue-600/10 hover:bg-blue-600/20 backdrop-blur-sm px-8 py-6 text-lg font-semibold hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5" 
+                  className="border-2 border-white text-white bg-blue-600/10 hover:bg-blue-600/20 backdrop-blur-sm px-8 py-6 text-lg font-semibold hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 dark:border-gray-300 dark:bg-gray-700/20 dark:hover:bg-gray-600/20" 
                   asChild
                 >
                   <Link to="/contact" className="flex items-center gap-2">
@@ -747,7 +747,7 @@ export default function LandingPage() {
         </section>
 
         {/* Footer */}
-        <footer className="bg-gray-900 text-white py-16 border-t border-gray-800">
+        <footer className="bg-gray-900 dark:bg-gray-950 text-white py-16 border-t border-gray-800 dark:border-gray-700">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
               <div className="md:col-span-1">
@@ -823,7 +823,7 @@ export default function LandingPage() {
                 </ul>
               </div>
             </div>
-            <div className="border-t border-gray-800 pt-8 text-center text-gray-400 text-sm">
+            <div className="border-t border-gray-800 dark:border-gray-700 pt-8 text-center text-gray-400 text-sm">
               <p>&copy; 2025 Kala Kranthi | Godavari Global University. All rights reserved.</p>
             </div>
           </div>
