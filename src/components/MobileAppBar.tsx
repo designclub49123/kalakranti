@@ -295,10 +295,27 @@ export default function MobileAppBar() {
               </nav>
               
               {/* Footer */}
-              <div className="p-4 border-t">
+              <div className="p-4 border-t space-y-2">
+                <div className="flex items-center justify-between px-2 py-1.5 rounded-lg bg-accent/30">
+                  <span className="text-sm font-medium">Theme</span>
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={toggleTheme}
+                    className="h-8 px-2"
+                    aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+                  >
+                    {theme === 'dark' ? (
+                      <IconsaxIcon name="Sun1" variant="Bold" className="h-4 w-4 mr-2" />
+                    ) : (
+                      <IconsaxIcon name="Moon" variant="Bold" className="h-4 w-4 mr-2" />
+                    )}
+                    {theme === 'dark' ? 'Light' : 'Dark'}
+                  </Button>
+                </div>
                 <Button 
                   variant="outline" 
-                  className="w-full" 
+                  className="w-full mt-2" 
                   onClick={() => {
                     signOut();
                     setIsOpen(false);
