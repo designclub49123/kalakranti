@@ -15,6 +15,31 @@ type Organizer = {
 };
 
 export default function Organizers() {
+  // GGU Leaders data
+  const gguLeaders: Organizer[] = [
+    {
+      id: 1,
+      name: 'Dr. U. Chandra Sekhar',
+      role: 'Vice Chancellor',
+      department: 'Godavari Global University',
+      image: 'https://bhalrlrwbfdfqcnmgcsa.supabase.co/storage/v1/object/public/gallery/Screenshot%202025-10-27%20110753.png',
+    },
+    {
+      id: 2,
+      name: 'Sri K.V.V. Satyanarayana Raju',
+      role: 'Chairman of GGU & GIET Institutions',
+      department: 'Godavari Global University',
+      image: 'https://bhalrlrwbfdfqcnmgcsa.supabase.co/storage/v1/object/public/gallery/Screenshot%202025-10-27%20111015.png',
+    },
+    {
+      id: 3,
+      name: 'K. Sasi Kiran Varma',
+      role: 'Pro-Chancellor of GGU',
+      department: 'Godavari Global University',
+      image: 'https://bhalrlrwbfdfqcnmgcsa.supabase.co/storage/v1/object/public/gallery/ProChancellor2.jpg',
+    }
+  ];
+
   // Official organizers data
   const officials: Organizer[] = [
     {
@@ -127,6 +152,74 @@ export default function Organizers() {
         </p>
       </div>
 
+      {/* GGU Leaders Section */}
+      <section className="mb-16">
+        <h2 className="text-xl md:text-2xl font-semibold mb-6 text-center">Organized with the Blessings and Support of GGU Leaders</h2>
+        <div className="flex justify-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl w-full">
+            {gguLeaders.map((leader, index) => (
+              <Card
+                key={`leader-${index}`}
+                className="group hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-pink-50 to-pink-100 dark:from-pink-900 dark:to-pink-800 min-w-[250px] md:min-w-[300px]"
+              >
+                <CardHeader className="items-center p-4 sm:p-6">
+                  <Avatar className="h-24 w-24 md:h-28 md:w-28 mb-4 group-hover:scale-105 transition-transform">
+                    {leader.image ? (
+                      <AvatarImage src={leader.image} alt={leader.name} className="object-cover" />
+                    ) : (
+                      <AvatarFallback className="text-lg md:text-xl bg-pink-200 dark:bg-pink-700">
+                        {leader.name.split(' ').map((n) => n[0]).join('')}
+                      </AvatarFallback>
+                    )}
+                  </Avatar>
+                  <CardTitle className="text-base md:text-lg text-center line-clamp-1">
+                    {leader.name}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="text-center space-y-2">
+                  <Badge
+                    variant="default"
+                    className="w-fit mx-auto text-xs md:text-sm px-3 py-1 bg-gradient-to-r from-pink-500 to-pink-600"
+                  >
+                    {leader.role}
+                  </Badge>
+                  {leader.department && (
+                    <CardDescription className="text-xs md:text-sm line-clamp-2">
+                      {leader.department}
+                    </CardDescription>
+                  )}
+                  <div className="flex gap-3 justify-center pt-3 mt-3 border-t border-pink-100 dark:border-pink-700">
+                    {leader.email && (
+                      <a 
+                        href={`mailto:${leader.email}`} 
+                        className="text-pink-600 dark:text-pink-300 hover:text-pink-700 dark:hover:text-pink-200 transition-colors"
+                        title={leader.email}
+                      >
+                        <DirectInbox size={18} variant="Bold" />
+                      </a>
+                    )}
+                    {leader.phone && (
+                      <a 
+                        href={`tel:${leader.phone.replace(/[^0-9+]/g, '')}`} 
+                        className="text-pink-600 dark:text-pink-300 hover:text-pink-700 dark:hover:text-pink-200 transition-colors"
+                        title={leader.phone}
+                      >
+                        <CallAdd size={18} variant="Bold" />
+                      </a>
+                    )}
+                    {leader.place && (
+                      <span className="text-pink-600 dark:text-pink-300" title={leader.place}>
+                        <Location size={18} variant="Bold" />
+                      </span>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Official Organizers Section */}
       <section className="mb-16">
         <h2 className="text-xl md:text-2xl font-semibold mb-6 text-center">Official Organizers</h2>
@@ -142,7 +235,7 @@ export default function Organizers() {
                     {official.image ? (
                       <AvatarImage src={official.image} alt={official.name} className="object-cover" />
                     ) : (
-                      <AvatarFallback className="text-lg md:text-xl bg-blue-200 dark:bg-blue-700">
+                      <AvatarFallback className="text-lg md:text-xl bg-pink-200 dark:bg-pink-700">
                         {official.name.split(' ').map((n) => n[0]).join('')}
                       </AvatarFallback>
                     )}
@@ -154,7 +247,7 @@ export default function Organizers() {
                 <CardContent className="text-center space-y-2">
                   <Badge
                     variant="default"
-                    className="w-fit mx-auto text-xs md:text-sm px-3 py-1 bg-gradient-to-r from-blue-500 to-blue-600"
+                    className="w-fit mx-auto text-xs md:text-sm px-3 py-1 bg-gradient-to-r from-pink-500 to-pink-600"
                   >
                     {official.role}
                   </Badge>
@@ -163,11 +256,11 @@ export default function Organizers() {
                       {official.department}
                     </CardDescription>
                   )}
-                  <div className="flex gap-3 justify-center pt-3 mt-3 border-t border-blue-100 dark:border-blue-700">
+                  <div className="flex gap-3 justify-center pt-3 mt-3 border-t border-pink-100 dark:border-pink-700">
                     {official.email && (
                       <a 
                         href={`mailto:${official.email}`} 
-                        className="text-blue-600 dark:text-blue-300 hover:text-blue-700 dark:hover:text-blue-200 transition-colors"
+                        className="text-pink-600 dark:text-pink-300 hover:text-pink-700 dark:hover:text-pink-200 transition-colors"
                         title={official.email}
                       >
                         <DirectInbox size={18} variant="Bold" />
@@ -176,7 +269,7 @@ export default function Organizers() {
                     {official.phone && (
                       <a 
                         href={`tel:${official.phone.replace(/[^0-9+]/g, '')}`} 
-                        className="text-blue-600 dark:text-blue-300 hover:text-blue-700 dark:hover:text-blue-200 transition-colors"
+                        className="text-pink-600 dark:text-pink-300 hover:text-pink-700 dark:hover:text-pink-200 transition-colors"
                         title={official.phone}
                       >
                         <CallAdd size={18} variant="Bold" />
