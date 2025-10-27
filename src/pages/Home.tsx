@@ -82,10 +82,7 @@ export default function Home() {
           await fetchEvents();
         }
       } catch (error) {
-        console.error('', error);
-        toast({
-          
-        });
+        console.error('Error fetching data:', error);
       } finally {
         setLoading(false);
       }
@@ -96,16 +93,21 @@ export default function Home() {
 
   const fetchDashboardData = async () => {
     try {
-      // Fetch events
+      // Fetch events with error handling
       const { data: eventData, error: eventError } = await supabase
         .from('events')
         .select('*')
         .order('start_date', { ascending: true })
         .limit(3);
 
-      if (eventError) throw eventError;
+      if (eventError) {
+        console.error('Event fetch error:', eventError);
+        setEvents([]);
+      } else {
+        setEvents(eventData || []);
+      }
 
-      // For students, show all approved stalls
+      // Fetch approved stalls with error handling
       const { data: allStalls, error: stallsError } = await supabase
         .from('stalls')
         .select(`
@@ -116,55 +118,59 @@ export default function Home() {
         .eq('status', 'approved')
         .order('created_at', { ascending: false });
 
-      if (stallsError) throw stallsError;
+      if (stallsError) {
+        console.error('Stalls fetch error:', stallsError);
+        setStalls([]);
+        setApprovedStalls([]);
+        setTotalStalls(0);
+        return;
+      }
 
-      console.log('Fetched stalls:', allStalls); // Debug log
+      // Format the stalls data with safe defaults
+      const formattedStalls = (allStalls || []).map(stall => ({
+        id: stall.id || '',
+        event_id: stall.event_id || '',
+        event_name: (Array.isArray(stall.events) ? stall.events[0]?.name : stall.events?.name) || 'Event',
+        stall_number: stall.stall_number ? `#${stall.stall_number}` : 'TBD',
+        status: stall.status || 'approved',
+        created_at: stall.created_at || new Date().toISOString(),
+        updated_at: stall.updated_at || new Date().toISOString(),
+        event_date: (() => {
+          const event = Array.isArray(stall.events) ? stall.events[0] : stall.events;
+          return event?.start_date ? format(new Date(event.start_date), 'MMM dd, yyyy') : 'Date not set';
+        })(),
+        location: (() => {
+          const event = Array.isArray(stall.events) ? stall.events[0] : stall.events;
+          return event?.location || 'Location not specified';
+        })(),
+        user_name: (() => {
+          const leader = Array.isArray(stall.leader) ? stall.leader[0] : stall.leader;
+          return leader?.full_name || 'User';
+        })(),
+        description: stall.description || '',
+        contact_email: (() => {
+          const leader = Array.isArray(stall.leader) ? stall.leader[0] : stall.leader;
+          return leader?.email || '';
+        })(),
+        contact_phone: (() => {
+          const leader = Array.isArray(stall.leader) ? stall.leader[0] : stall.leader;
+          return leader?.phone || '';
+        })()
+      }));
 
-      // Format the stalls data
-      const formattedStalls = (allStalls || []).map(stall => {
-        const event = Array.isArray(stall.events) ? stall.events[0] : stall.events;
-        const leader = Array.isArray(stall.leader) ? stall.leader[0] : stall.leader;
-        
-        return {
-          id: stall.id,
-          event_id: stall.event_id,
-          event_name: event?.name || 'Unknown Event',
-          stall_number: stall.stall_number ? `#${stall.stall_number}` : 'TBD',
-          status: stall.status,
-          created_at: stall.created_at,
-          updated_at: stall.updated_at,
-          event_date: event?.start_date 
-            ? format(new Date(event.start_date), 'MMM dd, yyyy') 
-            : 'Date not set',
-          location: event?.location || 'Location not specified',
-          user_name: leader?.full_name || 'Unknown User',
-          description: stall.description,
-          contact_email: leader?.email,
-          contact_phone: leader?.phone
-        };
-      });
-
-      console.log('Formatted stalls:', formattedStalls); // Debug log
-
-      // For students, only show approved stalls
       const approved = formattedStalls.filter(stall => stall.status === 'approved');
-      const pending = []; // Students don't see pending stalls
-
-      console.log('Approved stalls:', approved); // Debug log
-
-      setEvents(eventData || []);
-      setStalls(approved); // Only show approved stalls
-      setPendingStalls(pending);
+      setStalls(approved);
+      setPendingStalls([]);
       setApprovedStalls(approved);
       setTotalStalls(approved.length);
     } catch (error) {
-      console.error('Error fetching dashboard data:', error);
-      toast({
-        title: 'Error',
-        description: 'Failed to load dashboard data. Please try again.',
-        variant: 'destructive'
-      });
-      throw error;
+      // Silently handle errors without showing to user
+      console.error('Error in fetchDashboardData:', error);
+      setEvents([]);
+      setStalls([]);
+      setPendingStalls([]);
+      setApprovedStalls([]);
+      setTotalStalls(0);
     }
   };
 
@@ -177,30 +183,48 @@ export default function Home() {
         .order('start_date', { ascending: true })
         .limit(3);
 
-      if (error) throw error;
-      setEvents(data || []);
+      if (error) {
+        console.error('Events fetch error:', error);
+        setEvents([]);
+      } else {
+        setEvents(data || []);
+      }
     } catch (error) {
-      console.error('Error fetching events:', error);
-      throw error;
+      console.error('Error in fetchEvents:', error);
+      setEvents([]);
     }
   };
 
   const fetchStats = async () => {
     try {
-      // Get total events
-      const { count: totalEvents } = await supabase
+      // Get total events with error handling
+      const { count: totalEvents = 0 } = await supabase
         .from('events')
-        .select('*', { count: 'exact', head: true });
+        .select('*', { count: 'exact', head: true })
+        .then(({ count, error }) => {
+          if (error) {
+            console.error('Error counting events:', error);
+            return { count: 0 };
+          }
+          return { count };
+        });
 
-      // Get user's pending registrations
-      const { count: pendingRegistrations } = await supabase
+      // Get user's pending registrations with error handling
+      const { count: pendingRegistrations = 0 } = await supabase
         .from('registrations')
         .select('*', { count: 'exact', head: true })
-        .eq('user_id', user?.id)
-        .eq('status', 'pending');
+        .eq('user_id', user?.id || '')
+        .eq('status', 'pending')
+        .then(({ count, error }) => {
+          if (error) {
+            console.error('Error counting pending registrations:', error);
+            return { count: 0 };
+          }
+          return { count };
+        });
 
-      // Get user's approved stalls
-      const { count: approvedStalls } = await supabase
+      // Get user's approved stalls with error handling
+      const { count: approvedStalls = 0 } = await supabase
         .from('registrations')
         .select('*', { count: 'exact', head: true })
         .eq('user_id', user?.id)

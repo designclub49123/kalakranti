@@ -150,7 +150,8 @@ export default function Auth() {
       </div>
 
       {/* Right Side - Auth Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 lg:p-24 bg-background">
+      <div className="w-full lg:w-1/2 flex items-center justify-center min-h-screen p-4 sm:p-6 lg:p-8 bg-background">
+        <div className="w-full max-w-md -mt-16">
         <div className="w-full max-w-md">
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold text-foreground mb-2">
@@ -315,6 +316,7 @@ export default function Auth() {
               </p>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </div>
