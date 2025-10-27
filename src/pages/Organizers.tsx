@@ -17,49 +17,50 @@ type Organizer = {
 export default function Organizers() {
   // GGU Leaders data
   const gguLeaders: Organizer[] = [
+    
     {
       id: 1,
-      name: 'Dr. U. Chandra Sekhar',
-      role: 'Vice Chancellor',
-      department: 'Godavari Global University',
-      image: 'https://bhalrlrwbfdfqcnmgcsa.supabase.co/storage/v1/object/public/gallery/Screenshot%202025-10-27%20110753.png',
-    },
-    {
-      id: 2,
       name: 'Sri K.V.V. Satyanarayana Raju',
       role: 'Chairman of GGU & GIET Institutions',
       department: 'Godavari Global University',
       image: 'https://bhalrlrwbfdfqcnmgcsa.supabase.co/storage/v1/object/public/gallery/Screenshot%202025-10-27%20111015.png',
     },
     {
-      id: 3,
+      id: 2,
       name: 'K. Sasi Kiran Varma',
       role: 'Pro-Chancellor of GGU',
       department: 'Godavari Global University',
       image: 'https://bhalrlrwbfdfqcnmgcsa.supabase.co/storage/v1/object/public/gallery/ProChancellor2.jpg',
-    }
+    },
+    {
+      id: 3,
+      name: 'Dr. U. Chandra Sekhar',
+      role: 'Vice Chancellor',
+      department: 'Godavari Global University',
+      image: 'https://bhalrlrwbfdfqcnmgcsa.supabase.co/storage/v1/object/public/gallery/Screenshot%202025-10-27%20110753.png',
+    },
   ];
 
   // Official organizers data
   const officials: Organizer[] = [
     {
       id: 1,
-      name: 'Dr. E. Nirmala Devi',
-      role: 'Professor & Dept of MECH',
-      department: 'Godavari Global University',
-      image: 'https://bhalrlrwbfdfqcnmgcsa.supabase.co/storage/v1/object/public/gallery/Picture3.jpg',
-      email: 'nirmala.mech@ggu.ac.in',
-      phone: '+91 9876543212',
-      place: 'Rajahmundry, AP'
-    },
-    {
-      id: 2,
       name: 'Dr. Y. Muralidhar Reddy',
       role: 'Director Innovation and Incubation Cell',
       department: 'Godavari Global University',
       image: 'https://bhalrlrwbfdfqcnmgcsa.supabase.co/storage/v1/object/public/gallery/Picture1.jpg',
       email: 'director.iic@ggu.ac.in',
       phone: '+91 9876543210',
+      place: 'Rajahmundry, AP'
+    },
+    {
+      id: 2,
+      name: 'Dr. E. Nirmala Devi',
+      role: 'Professor & Dept of MECH',
+      department: 'Godavari Global University',
+      image: 'https://bhalrlrwbfdfqcnmgcsa.supabase.co/storage/v1/object/public/gallery/Picture3.jpg',
+      email: 'nirmala.mech@ggu.ac.in',
+      phone: '+91 9876543212',
       place: 'Rajahmundry, AP'
     },
     {

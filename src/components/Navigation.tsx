@@ -208,22 +208,14 @@ export default function Navigation({ children }: NavigationProps) {
             {/* Logo and Toggle */}
             <div className="p-4 border-b border-border">
               <div className="flex items-center justify-between">
-                <div className="flex items-center justify-between w-full">
-                  <div className="flex items-center space-x-2">
-                    {!isCollapsed && (
-                      <span className="font-bold text-foreground text-lg">Kala Kranthi</span>
-                    )}
-                  </div>
-                  <div className="flex items-center">
-                    <ThemeToggle />
-                    {isAdmin && !isCollapsed && (
-                      <span className="ml-2 text-xs text-muted-foreground">
-                        {isJuniorAdmin ? 'Junior Admin' : 'Admin'}
-                      </span>
-                    )}
-                  </div>
+                <div className="flex items-center space-x-2">
+                  
+                  {!isCollapsed && (
+                    <span className="font-bold text-foreground text-lg">Kala Kranthi</span>
+                  )}
                 </div>
                 <div className="flex items-center space-x-1">
+                  {!isCollapsed && <ThemeToggle />}
                   <Button
                     variant="ghost"
                     size="icon"
