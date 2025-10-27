@@ -5,6 +5,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import IconsaxIcon from '@/components/ui/IconsaxIcon';
 import { useAuth } from '@/contexts/AuthContext';
 import { cn } from '@/lib/utils';
+import { useTheme } from '@/contexts/ThemeContext';
 
 type NavItem = {
   icon: any;
@@ -20,6 +21,7 @@ export default function MobileAppBar() {
   const location = useLocation();
   const navigate = useNavigate();
   const { profile, signOut, isAdmin, isJuniorAdmin } = useAuth();
+  const { theme } = useTheme();
   const [activePath, setActivePath] = useState(location.pathname);
 
   // Update active path when location changes
@@ -144,7 +146,10 @@ export default function MobileAppBar() {
   return (
     <>
       {/* Top App Bar */}
-      <header className="md:hidden fixed top-0 left-0 right-0 bg-white shadow-sm z-50 h-14 flex items-center px-4">
+      <header className={cn(
+        "md:hidden fixed top-0 left-0 right-0 shadow-sm z-50 h-14 flex items-center px-4 transition-colors duration-200",
+        theme === 'dark' ? 'bg-card border-b border-border' : 'bg-white'
+      )}>
         {/* Hamburger Menu Button */}
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild>
@@ -253,9 +258,12 @@ export default function MobileAppBar() {
         </div>
       </header>
       
-      {/* Bottom Navigation Bar */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t shadow-lg z-40">
-        <div className="flex items-center justify-around h-16">
+      {/* Bottom Navigation */}
+      <nav className={cn(
+        "md:hidden fixed bottom-0 left-0 right-0 border-t flex justify-around items-center h-14 z-40 transition-colors duration-200",
+        theme === 'dark' ? 'bg-card border-border' : 'bg-white border-gray-200'
+      )}>
+        <div className="flex items-center justify-around h-14">
           {bottomNavItems.map((item) => {
             const active = isActive(item);
             return (
@@ -264,10 +272,8 @@ export default function MobileAppBar() {
                 variant="ghost"
                 size="sm"
                 className={cn(
-                  'flex flex-col h-full rounded-none w-full',
-                  'text-xs font-medium',
-                  active ? 'text-primary' : 'text-muted-foreground',
-                  'hover:bg-transparent hover:text-primary'
+                  'flex flex-col items-center justify-center w-full h-full',
+                  active ? 'text-primary' : theme === 'dark' ? 'text-muted-foreground' : 'text-muted-foreground'
                 )}
                 onClick={() => navigate(item.to)}
               >
