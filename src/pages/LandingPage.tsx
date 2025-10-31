@@ -7,6 +7,9 @@ import SocialIcons from '@/components/ui/SocialIcons';
 import { supabase } from '@/integrations/supabase/client';
 import { Skeleton } from '@/components/ui/skeleton';
 import { toast } from 'sonner';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 
 const features = [
   {
@@ -163,6 +166,42 @@ export default function LandingPage() {
   const [galleryLoading, setGalleryLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+
+  type Leader = {
+    id: number;
+    name: string;
+    role: string | string[];
+    department?: string;
+    image?: string;
+    email?: string;
+    phone?: string;
+    place?: string;
+  };
+
+  // GGU Leaders data (same as Organizers page)
+  const gguLeaders: Leader[] = [
+    {
+      id: 1,
+      name: 'Sri K.V.V. Satyanarayana Raju',
+      role: 'Chairman of GGU & GIET Institutions',
+      department: 'Godavari Global University',
+      image: 'https://bhalrlrwbfdfqcnmgcsa.supabase.co/storage/v1/object/public/gallery/Screenshot%202025-10-27%20111015.png',
+    },
+    {
+      id: 2,
+      name: 'K. Sasi Kiran Varma',
+      role: 'Pro-Chancellor of GGU',
+      department: 'Godavari Global University',
+      image: 'https://bhalrlrwbfdfqcnmgcsa.supabase.co/storage/v1/object/public/gallery/ProChancellor2.jpg',
+    },
+    {
+      id: 3,
+      name: 'Dr. U. Chandra Sekhar',
+      role: 'Vice Chancellor',
+      department: 'Godavari Global University',
+      image: 'https://bhalrlrwbfdfqcnmgcsa.supabase.co/storage/v1/object/public/gallery/Screenshot%202025-10-27%20110753.png',
+    },
+  ];
 
   // Check if the device is mobile
   useEffect(() => {
@@ -454,6 +493,52 @@ export default function LandingPage() {
           </div>
         </section>
 
+        {/* GGU Leaders Section - Clean theme for landing */}
+        <section className="py-16 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-10">
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">Organized with the Blessings and Support of GGU Leaders</h2>
+              <p className="text-sm md:text-base text-gray-500 dark:text-gray-400 mt-2">We’re grateful for the continued guidance and support</p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 justify-items-center">
+              {gguLeaders.map((leader, index) => (
+                <Card
+                  key={`leader-${index}`}
+                  className="group bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 w-full max-w-sm"
+                >
+                  <CardHeader className="items-center p-6">
+                    <Avatar className="h-24 w-24 md:h-28 md:w-28 mb-4 group-hover:scale-105 transition-transform ring-4 ring-blue-100 dark:ring-blue-900/40">
+                      {leader.image ? (
+                        <AvatarImage src={leader.image} alt={leader.name} className="object-cover" />
+                      ) : (
+                        <AvatarFallback className="text-lg md:text-xl bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-200">
+                          {leader.name.split(' ').map((n) => n[0]).join('')}
+                        </AvatarFallback>
+                      )}
+                    </Avatar>
+                    <CardTitle className="text-base md:text-lg text-center line-clamp-1">
+                      {leader.name}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="text-center space-y-2 pb-6">
+                    <Badge
+                      variant="outline"
+                      className="w-fit mx-auto text-xs md:text-sm px-3 py-1 border-blue-200 text-blue-700 dark:border-blue-700 dark:text-blue-300 bg-blue-50/50 dark:bg-blue-900/20"
+                    >
+                      {leader.role}
+                    </Badge>
+                    {leader.department && (
+                      <CardDescription className="text-xs md:text-sm line-clamp-2 text-gray-500 dark:text-gray-400">
+                        {leader.department}
+                      </CardDescription>
+                    )}
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Upcoming Events */}
         <section id="events" className="py-24 bg-gray-50 dark:bg-gray-800">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -466,47 +551,68 @@ export default function LandingPage() {
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Upcoming Events</h2>
               <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">Don't miss these exciting events on campus</p>
             </motion.div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {events.map((event, index) => (
-                <motion.div
-                  key={event.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5 }}
-                  className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 cursor-pointer group"
-                  whileHover={{ y: -8 }}
-                >
-                  <div className="h-48 overflow-hidden relative group-hover:scale-105 transition-transform duration-500">
-                    <img 
-                      src={`https://source.unsplash.com/random/600x400/?event,${index + 1}`} 
-                      alt={event.title}
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                  </div>
-                  <div className="p-6">
-                    <div className="flex justify-between items-start mb-4">
-                      <span className="px-3 py-1 bg-gradient-to-r from-blue-400 to-red-400 text-white text-sm font-medium rounded-full shadow-sm">
-                        {event.category}
-                      </span>
-                      <span className="text-sm text-gray-500 dark:text-gray-400 font-medium">{event.date}</span>
+            {isLoading ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {[...Array(3)].map((_, i) => (
+                  <div key={i} className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md border border-gray-100 dark:border-gray-700">
+                    <div className="h-48 bg-gray-100 dark:bg-gray-700 animate-pulse" />
+                    <div className="p-6 space-y-3">
+                      <div className="h-4 w-24 bg-gray-100 dark:bg-gray-700 rounded animate-pulse" />
+                      <div className="h-6 w-3/4 bg-gray-100 dark:bg-gray-700 rounded animate-pulse" />
+                      <div className="h-4 w-1/2 bg-gray-100 dark:bg-gray-700 rounded animate-pulse" />
+                      <div className="h-10 w-full bg-gray-100 dark:bg-gray-700 rounded animate-pulse mt-4" />
                     </div>
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{event.title}</h3>
-                    <p className="text-gray-600 dark:text-gray-300 mb-6 flex items-center">
-                      <IconsaxIcon name="Category" className="mr-2 h-4 w-4 text-gray-400 dark:text-gray-500" />
-                      {event.location}
-                    </p>
-                    <Button className="w-full bg-gradient-to-r from-blue-500 to-red-500 hover:from-blue-600 hover:to-red-600 shadow-md text-white dark:from-blue-600 dark:to-red-600 dark:hover:from-blue-700 dark:hover:to-red-700" asChild>
-                      <Link to={`/events/${event.id}`} className="flex items-center justify-center">
-                        Learn More
-                        <IconsaxIcon name="ArrowRight2" className="ml-2 h-4 w-4" />
-                      </Link>
-                    </Button>
                   </div>
-                </motion.div>
-              ))}
-            </div>
+                ))}
+              </div>
+            ) : events.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {events.map((event, index) => (
+                  <motion.div
+                    key={event.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5 }}
+                    className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 cursor-pointer group"
+                    whileHover={{ y: -8 }}
+                  >
+                    <div className="h-48 overflow-hidden relative group-hover:scale-105 transition-transform duration-500">
+                      <img 
+                        src={`https://source.unsplash.com/random/600x400/?event,${index + 1}`} 
+                        alt={event.title}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                    </div>
+                    <div className="p-6">
+                      <div className="flex justify-between items-start mb-4">
+                        <span className="px-3 py-1 bg-gradient-to-r from-blue-400 to-red-400 text-white text-sm font-medium rounded-full shadow-sm">
+                          {event.category}
+                        </span>
+                        <span className="text-sm text-gray-500 dark:text-gray-400 font-medium">{formatDate(event.date)}</span>
+                      </div>
+                      <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{event.title}</h3>
+                      <p className="text-gray-600 dark:text-gray-300 mb-6 flex items-center">
+                        <IconsaxIcon name="Category" className="mr-2 h-4 w-4 text-gray-400 dark:text-gray-500" />
+                        {event.location}
+                      </p>
+                      <Button className="w-full bg-gradient-to-r from-blue-500 to-red-500 hover:from-blue-600 hover:to-red-600 shadow-md text-white dark:from-blue-600 dark:to-red-600 dark:hover:from-blue-700 dark:hover:to-red-700" asChild>
+                        <Link to={`/events/${event.id}`} className="flex items-center justify-center">
+                          Learn More
+                          <IconsaxIcon name="ArrowRight2" className="ml-2 h-4 w-4" />
+                        </Link>
+                      </Button>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center p-10 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">No upcoming events</h3>
+                <p className="text-gray-600 dark:text-gray-300">Please check back later for new events.</p>
+              </div>
+            )}
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}

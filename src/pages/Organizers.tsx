@@ -58,7 +58,7 @@ export default function Organizers() {
       name: 'Dr. E. Nirmala Devi',
       role: 'Professor & Dept of MECH',
       department: 'Godavari Global University',
-      image: 'https://bhalrlrwbfdfqcnmgcsa.supabase.co/storage/v1/object/public/gallery/Picture3.jpg',
+      image: 'https://bhalrlrwbfdfqcnmgcsa.supabase.co/storage/v1/object/public/gallery/WhatsApp%20Image%202025-10-25%20at%2015.48.40_ffb62d43.jpg',
       email: 'nirmala.mech@ggu.ac.in',
       phone: '+91 9876543212',
       place: 'Rajahmundry, AP'
