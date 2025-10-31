@@ -30,6 +30,7 @@ import AdminForms from './pages/admin/AdminForms';
 import AdminCommunications from './pages/admin/AdminCommunications';
 import AdminContactSubmissions from './pages/admin/AdminContactSubmissions';
 import Gallery from './pages/Gallery';
+import Media from './pages/Media';
 import Contact from './pages/Contact';
 import Organizers from './pages/Organizers';
 import NotFound from './pages/NotFound';
@@ -91,6 +92,7 @@ function AppContent() {
           <Route path="profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
           <Route path="register-stall" element={<ProtectedRoute><RegisterStall /></ProtectedRoute>} />
           <Route path="gallery" element={<Gallery />} />
+          <Route path="media" element={<Media />} />
           <Route path="contact" element={<Contact />} />
           
           {/* Admin routes */}

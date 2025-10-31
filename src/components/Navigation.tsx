@@ -77,9 +77,9 @@ export default function Navigation({ children }: NavigationProps) {
     },
     { 
       icon: 'Gallery', 
-      label: 'Gallery', 
-      to: '/gallery',
-      iconActive: (path: string) => path === '/gallery' || path.startsWith('/gallery/'),
+      label: 'Media', 
+      to: '/media',
+      iconActive: (path: string) => path === '/media' || path.startsWith('/media/'),
     },
     { 
       icon: 'Message', 
@@ -171,11 +171,11 @@ export default function Navigation({ children }: NavigationProps) {
     },
     { 
       icon: 'Gallery', 
-      label: 'Gallery', 
-      to: '/gallery',
+      label: 'Media', 
+      to: '/media',
       iconActive: (path: string) => 
-        path === '/gallery' || 
-        path.startsWith('/gallery/')
+        path === '/media' || 
+        path.startsWith('/media/')
     },
     { 
       icon: 'MessageText1', 
