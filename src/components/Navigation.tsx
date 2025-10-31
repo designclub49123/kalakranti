@@ -70,6 +70,12 @@ export default function Navigation({ children }: NavigationProps) {
       iconActive: (path: string) => path === '/organizers' || path.startsWith('/organizers/'),
     },
     { 
+      icon: 'Profile2User', 
+      label: 'Entrepreneur Cell', 
+      to: '/volunteers',
+      iconActive: (path: string) => path === '/volunteers' || path.startsWith('/volunteers/'),
+    },
+    { 
       icon: 'AddCircle', 
       label: 'Register Stall', 
       to: '/register-stall',
@@ -144,6 +150,14 @@ export default function Navigation({ children }: NavigationProps) {
       iconActive: (path: string) => 
         path === '/organizers' || 
         path.startsWith('/organizers/')
+    },
+    { 
+      icon: 'Profile2User', 
+      label: 'Entrepreneur Cell', 
+      to: '/admin/entrepreneurs',
+      iconActive: (path: string) => 
+        path === '/admin/entrepreneurs' || 
+        path.startsWith('/admin/entrepreneurs/')
     },
     { 
       icon: 'DocumentText', 

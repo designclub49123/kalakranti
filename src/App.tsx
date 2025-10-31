@@ -27,10 +27,13 @@ import AdminStalls from './pages/AdminStalls';
 import AdminEvents from './pages/admin/AdminEvents';
 import AdminCertificates from './pages/admin/AdminCertificates';
 import AdminForms from './pages/admin/AdminForms';
+import AdminEntrepreneurs from './pages/admin/AdminEntrepreneurs';
 import AdminCommunications from './pages/admin/AdminCommunications';
 import AdminContactSubmissions from './pages/admin/AdminContactSubmissions';
 import Gallery from './pages/Gallery';
 import Media from './pages/Media';
+import Volunteers from './pages/Volunteers';
+import EntrepreneurRegister from './pages/EntrepreneurRegister';
 import Contact from './pages/Contact';
 import Organizers from './pages/Organizers';
 import NotFound from './pages/NotFound';
@@ -59,6 +62,19 @@ function AppContent() {
   
   // Hide MobileAppBar on landing page and auth page
   const shouldShowMobileAppBar = !['/', '/auth'].includes(location.pathname);
+  const isEntrepreneurSubdomain = typeof window !== 'undefined' && /^(entrepreneur|ec)\./i.test(window.location.hostname);
+  if (isEntrepreneurSubdomain) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <div className="flex-1 w-full mx-auto px-2 md:p-0 pt-0">
+          <Routes>
+            <Route path="/" element={<EntrepreneurRegister />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </div>
+      </div>
+    );
+  }
   
   return (
     <div className="min-h-screen flex flex-col">
@@ -88,6 +104,8 @@ function AppContent() {
           <Route path="stalls" element={<Stalls />} />
           <Route path="events" element={<Events />} />
           <Route path="organizers" element={<Organizers />} />
+          <Route path="volunteers" element={<Volunteers />} />
+          <Route path="entrepreneur-cell/register" element={<EntrepreneurRegister />} />
           <Route path="certificates" element={<ProtectedRoute><Certificates /></ProtectedRoute>} />
           <Route path="profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
           <Route path="register-stall" element={<ProtectedRoute><RegisterStall /></ProtectedRoute>} />
@@ -98,15 +116,16 @@ function AppContent() {
           {/* Admin routes */}
           <Route path="admin">
             <Route index element={<Navigate to="dashboard" replace />} />
-            <Route path="dashboard" element={<ProtectedRoute requireAdmin><AdminDashboard /></ProtectedRoute>} />
-            <Route path="stalls" element={<ProtectedRoute requireAdmin><AdminStalls /></ProtectedRoute>} />
-            <Route path="events" element={<ProtectedRoute requireAdmin><AdminEvents /></ProtectedRoute>} />
-            <Route path="forms" element={<ProtectedRoute requireAdmin><AdminForms /></ProtectedRoute>} />
-            <Route path="forms/:formId/responses" element={<ProtectedRoute requireAdmin><AdminFormResponses /></ProtectedRoute>} />
-            <Route path="certificates" element={<ProtectedRoute requireAdmin><AdminCertificates /></ProtectedRoute>} />
+            <Route path="dashboard" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
+            <Route path="stalls" element={<ProtectedRoute><AdminStalls /></ProtectedRoute>} />
+            <Route path="events" element={<ProtectedRoute><AdminEvents /></ProtectedRoute>} />
+            <Route path="certificates" element={<ProtectedRoute><AdminCertificates /></ProtectedRoute>} />
+            <Route path="forms" element={<ProtectedRoute><AdminForms /></ProtectedRoute>} />
+            <Route path="forms/:formId/responses" element={<ProtectedRoute><AdminFormResponses /></ProtectedRoute>} />
+            <Route path="entrepreneurs" element={<ProtectedRoute><AdminEntrepreneurs /></ProtectedRoute>} />
+            <Route path="contact-submissions" element={<ProtectedRoute><AdminContactSubmissions /></ProtectedRoute>} />
             <Route path="communications" element={<ProtectedRoute requireAdmin><AdminCommunications /></ProtectedRoute>} />
             <Route path="stalls-view" element={<ProtectedRoute requireAdmin><AdminStallsView /></ProtectedRoute>} />
-            <Route path="contact-submissions" element={<ProtectedRoute requireAdmin><AdminContactSubmissions /></ProtectedRoute>} />
           </Route>
           
           {/* Redirect to home if no route matches */}

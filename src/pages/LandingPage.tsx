@@ -167,6 +167,15 @@ export default function LandingPage() {
   const [error, setError] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
 
+  type StoredItem = {
+    name: string;
+    url: string;
+  };
+  const [galleryVideos, setGalleryVideos] = useState<StoredItem[]>([]);
+  const [galleryClips, setGalleryClips] = useState<StoredItem[]>([]);
+  const [videosLoading, setVideosLoading] = useState(true);
+  const [clipsLoading, setClipsLoading] = useState(true);
+
   type Leader = {
     id: number;
     name: string;
@@ -197,7 +206,7 @@ export default function LandingPage() {
     {
       id: 3,
       name: 'Dr. U. Chandra Sekhar',
-      role: 'Vice Chancellor',
+      role: 'Vice Chancellor of GGU',
       department: 'Godavari Global University',
       image: 'https://bhalrlrwbfdfqcnmgcsa.supabase.co/storage/v1/object/public/gallery/Screenshot%202025-10-27%20110753.png',
     },
@@ -310,6 +319,38 @@ export default function LandingPage() {
     };
 
     fetchGallery();
+  }, []);
+
+  const listFromStorage = async (folder: string): Promise<StoredItem[]> => {
+    try {
+      const { data, error } = await supabase.storage
+        .from('gallery')
+        .list(folder, { limit: 12, sortBy: { column: 'updated_at', order: 'desc' } });
+      if (error || !data) return [];
+      return data.map((f) => {
+        const path = `${folder}/${f.name}`;
+        const { data: pub } = supabase.storage.from('gallery').getPublicUrl(path);
+        return { name: f.name, url: pub.publicUrl };
+      });
+    } catch {
+      return [];
+    }
+  };
+
+  useEffect(() => {
+    const loadMedia = async () => {
+      setVideosLoading(true);
+      setClipsLoading(true);
+      const [v, c] = await Promise.all([
+        listFromStorage('videos'),
+        listFromStorage('clips'),
+      ]);
+      setGalleryVideos(v);
+      setGalleryClips(c);
+      setVideosLoading(false);
+      setClipsLoading(false);
+    };
+    loadMedia();
   }, []);
 
   return (
@@ -833,6 +874,50 @@ export default function LandingPage() {
                 <p className="text-gray-500 dark:text-gray-400">No gallery images available yet. Check back soon!</p>
               </div>
             )}
+
+            {/* Videos subsection */}
+            <div className="mt-12">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Event Videos</h3>
+              {videosLoading ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {[...Array(3)].map((_, i) => (
+                    <div key={i} className="aspect-video bg-gray-100 dark:bg-gray-800 rounded-xl animate-pulse" />
+                  ))}
+                </div>
+              ) : galleryVideos.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {galleryVideos.slice(0, 6).map((v) => (
+                    <div key={v.url} className="overflow-hidden rounded-xl border border-gray-100 dark:border-gray-700">
+                      <video src={v.url} controls className="w-full aspect-video" />
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-gray-500 dark:text-gray-400">No videos yet.</p>
+              )}
+            </div>
+
+            {/* Clips subsection */}
+            <div className="mt-8">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Event Clips</h3>
+              {clipsLoading ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {[...Array(3)].map((_, i) => (
+                    <div key={i} className="aspect-video bg-gray-100 dark:bg-gray-800 rounded-xl animate-pulse" />
+                  ))}
+                </div>
+              ) : galleryClips.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {galleryClips.slice(0, 6).map((c) => (
+                    <div key={c.url} className="overflow-hidden rounded-xl border border-gray-100 dark:border-gray-700">
+                      <video src={c.url} controls className="w-full aspect-video" />
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-gray-500 dark:text-gray-400">No clips yet.</p>
+              )}
+            </div>
 
             <div className="mt-12 text-center">
               <Button
