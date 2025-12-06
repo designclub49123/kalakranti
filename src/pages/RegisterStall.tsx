@@ -158,7 +158,7 @@ export default function RegisterStall() {
 
   if (events.length === 0) {
     return (
-      <div className="max-w-6xl mx-auto p-4 md:p-6">
+      <div className="max-w-6xl mx-auto p-4 sm:p-5 md:p-6 pb-20 md:pb-8">
         <Card>
           <CardHeader className="text-center">
             <FileText className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
@@ -180,26 +180,28 @@ export default function RegisterStall() {
   const selectedEvent = events.find(e => e.id === formData.event_id);
 
   return (
-    <div className="max-w-6xl mx-auto p-4 md:p-6 pb-20 md:pb-8">
-      <Card className="overflow-hidden">
-        <CardHeader className="bg-gradient-to-r from-primary/10 to-secondary/10">
-          <div className="flex items-center gap-3 mb-2">
+    <div className="max-w-6xl mx-auto p-4 sm:p-5 md:p-6 pb-24 md:pb-10 flex justify-center md:block">
+      <Card className="overflow-hidden w-full max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-none mx-auto rounded-3xl sm:rounded-2xl md:rounded-xl shadow-xl md:shadow-sm border border-white/5 md:border-border bg-background/95 backdrop-blur">
+        <CardHeader className="bg-gradient-to-r from-primary/10 to-secondary/10 space-y-3">
+          <div className="flex items-center gap-3">
             <Users className="h-6 w-6 text-primary" />
             <CardTitle className="text-2xl">Register Your Stall</CardTitle>
           </div>
-          <CardDescription className="text-center md:text-left">
+          <CardDescription className="text-sm md:text-base text-center md:text-left leading-relaxed">
             Fill in the details below to register your stall for an upcoming event. 
             Ensure all team members have active accounts.
           </CardDescription>
           {selectedEvent && (
-            <Badge variant="secondary" className="mt-2 ml-auto w-fit">
-              <Calendar className="h-3 w-3 mr-1" />
-              Selected: {selectedEvent.name} ({new Date(selectedEvent.start_date).toLocaleDateString()} - {new Date(selectedEvent.end_date).toLocaleDateString()})
-            </Badge>
+            <div className="flex justify-center md:justify-end">
+              <Badge variant="secondary" className="mt-1 w-full md:w-auto justify-center md:justify-start text-xs md:text-sm">
+                <Calendar className="h-3 w-3 mr-1" />
+                Selected: {selectedEvent.name} ({new Date(selectedEvent.start_date).toLocaleDateString()} - {new Date(selectedEvent.end_date).toLocaleDateString()})
+              </Badge>
+            </div>
           )}
         </CardHeader>
         <CardContent className="p-0">
-          <form onSubmit={handleSubmit} className="p-6 space-y-8">
+          <form onSubmit={handleSubmit} className="p-4 sm:p-5 md:p-6 space-y-6 md:space-y-8">
             {/* Event Selection - Full Width */}
             <div className="space-y-2">
               <div className="flex items-center gap-2">
@@ -225,7 +227,7 @@ export default function RegisterStall() {
             </div>
 
             {/* Stall Details - Grid Layout */}
-            <div className="grid md:grid-cols-2 gap-6 p-6 border rounded-lg bg-muted/50">
+            <div className="grid md:grid-cols-2 gap-5 md:gap-6 p-4 sm:p-5 md:p-6 border rounded-lg bg-muted/50">
               <div className="space-y-4">
                 <h3 className="font-semibold flex items-center gap-2 col-span-full">
                   <FileText className="h-4 w-4" />
@@ -264,7 +266,7 @@ export default function RegisterStall() {
             </div>
 
             {/* Contact Information - Grid Layout */}
-            <div className="grid md:grid-cols-2 gap-6 p-6 border rounded-lg bg-muted/50">
+            <div className="grid md:grid-cols-2 gap-5 md:gap-6 p-4 sm:p-5 md:p-6 border rounded-lg bg-muted/50">
               <div className="space-y-4">
                 <h3 className="font-semibold flex items-center gap-2 col-span-full">
                   <Phone className="h-4 w-4" />
@@ -290,9 +292,9 @@ export default function RegisterStall() {
               <div className="space-y-4">
                 <div className="space-y-2">
                   <Label>Team Leader</Label>
-                  <div className="flex items-center gap-2 p-3 bg-background rounded-md border">
-                    <User className="h-4 w-4 text-muted-foreground" />
-                    <span className="font-medium">{profile?.email || user?.email || 'Your Email'}</span>
+                  <div className="flex items-center gap-2 p-3 bg-background rounded-md border w-full overflow-hidden">
+                    <User className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                    <span className="font-medium truncate">{profile?.email || user?.email || 'Your Email'}</span>
                   </div>
                   <p className="text-xs text-muted-foreground">
                     You are automatically the team leader.
@@ -302,7 +304,7 @@ export default function RegisterStall() {
             </div>
 
             {/* Team Members - Full Width with Internal Grid */}
-            <div className="p-6 border rounded-lg bg-muted/50">
+            <div className="p-4 sm:p-5 md:p-6 border rounded-lg bg-muted/50">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 gap-2">
                 <div className="flex items-center gap-2">
                   <Users className="h-4 w-4" />
