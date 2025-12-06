@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useSearchParams } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -10,6 +10,7 @@ import { Loader2, Mail, Lock, User, Eye, EyeOff } from 'lucide-react';
 export default function Auth() {
   const navigate = useNavigate();
   const { user, signUp, signIn, signInWithGoogle } = useAuth();
+  const [searchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
@@ -19,11 +20,13 @@ export default function Auth() {
     fullName: ''
   });
 
+  const redirectTo = searchParams.get('redirect') || '/home';
+
   useEffect(() => {
     if (user) {
-      navigate('/home');
+      navigate(redirectTo, { replace: true });
     }
-  }, [user, navigate]);
+  }, [user, navigate, redirectTo]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -40,10 +43,10 @@ export default function Auth() {
     try {
       if (isLogin) {
         const { error } = await signIn(formData.email, formData.password);
-        if (!error) navigate('/home');
+        if (!error) navigate(redirectTo, { replace: true });
       } else {
         const { error } = await signUp(formData.email, formData.password, formData.fullName);
-        if (!error) navigate('/home');
+        if (!error) navigate(redirectTo, { replace: true });
       }
     } catch (error) {
       console.error('Authentication error:', error);
@@ -57,7 +60,7 @@ export default function Auth() {
 
     try {
       const { error } = await signInWithGoogle();
-      if (!error) navigate('/home');
+      if (!error) navigate(redirectTo, { replace: true });
     } catch (error) {
       console.error('Google authentication error:', error);
     } finally {
