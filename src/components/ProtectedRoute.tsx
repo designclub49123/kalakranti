@@ -1,5 +1,6 @@
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
+import { useLocation } from 'react-router-dom';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -8,6 +9,7 @@ interface ProtectedRouteProps {
 
 export default function ProtectedRoute({ children, requireAdmin = false }: ProtectedRouteProps) {
   const { user, loading, isAdmin, isJuniorAdmin } = useAuth();
+  const location = useLocation();
 
   if (loading) {
     return (
@@ -18,7 +20,8 @@ export default function ProtectedRoute({ children, requireAdmin = false }: Prote
   }
 
   if (!user) {
-    return <Navigate to="/auth" replace />;
+    const redirectPath = location.pathname + location.search;
+    return <Navigate to={`/auth?redirect=${encodeURIComponent(redirectPath)}`} replace />;
   }
 
   if (requireAdmin && !isAdmin && !isJuniorAdmin) {
